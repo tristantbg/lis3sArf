@@ -1,6 +1,9 @@
 [submodule "kirby"]
-	path = kirby
+	path = site/fields/gallery
 	url = git://github.com/getkirby/kirby.git
+[submodule "kirby-gallery"]
+	path = kirby
+	url = git://github.com/TimOetting/kirby-gallery.git
 [submodule "panel"]
 	path = panel
 	url = git://github.com/getkirby/panel.git

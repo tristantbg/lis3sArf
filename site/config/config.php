@@ -29,6 +29,7 @@ of the system, please check out http://getkirby.com/docs/advanced/options
 
 */
 
+c::set('home', 'works');
 c::set('oembed.lazyvideo', true);
 c::set('sitemap.exclude', array('error'));
 c::set('sitemap.important', array('contact'));

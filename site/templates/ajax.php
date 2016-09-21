@@ -4,7 +4,7 @@ if(kirby()->request()->ajax()) {
 	$site = site();
 	?>
 
-	<div class="inner">
+	<div class="inner" id="<?= $page->uid() ?>">
 	<?php if ($page->content()->name() == "article"): ?>
 		<h2><?= $page->title()->html() ?><?php if (!$page->subtitle()->empty()){ echo ', ' . $page->subtitle()->html(); } ?></h2>
 	<?php endif ?>

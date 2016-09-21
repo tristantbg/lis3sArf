@@ -31,5 +31,23 @@ of the system, please check out http://getkirby.com/docs/advanced/options
 
 c::set('home', 'works');
 c::set('oembed.lazyvideo', true);
+c::set('typography.ordinal.suffix', false);
+c::set('typography.fractions', false);
 c::set('sitemap.exclude', array('error'));
 c::set('sitemap.important', array('contact'));
+
+c::set('routes', array(
+    array(
+        'pattern' => '(:all)/ajax',
+        'action'  => function($uri) {
+          tpl::load(kirby()->roots()->templates() . DS . 'ajax.php', array('uri' => $uri), false );
+        }
+    ),
+    array(
+        'pattern' => 'about/texts',
+        'action'  => function($uri,$uid) {
+          $page = site()->homePage();
+      		go($page);
+        }
+    )
+));

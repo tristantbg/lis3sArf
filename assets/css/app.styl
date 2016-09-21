@@ -13,14 +13,16 @@ $mobile = 400px
 // Colors
 $primary ?= #fff
 $secondary ?= #000
+center = center
 
 // Metrics
-$padding = 10px
+$padding = 7px
 
 // CSS Reset
 global-reset()
 
-webfont('Franklin Gothic', 'franklingothic', true, 'bold')
+webfont('NH', 'NH', true, 'normal')
+webfont('NHI', 'NHI', true, 'italic')
 
 body,html
 	width 100%
@@ -28,13 +30,19 @@ body,html
 	background-color $primary
 	-webkit-text-size-adjust 100%
 
-body
-	text-rendering optimizeLegibility
-	font-smoothing()
+html
 	font-size 62.5%
 
+body
+	font-smoothing()
+	font-size 2.3em
+	line-height 1em
+	font-family 'NH', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif
+	padding $padding
+
 p
-	margin-bottom 1em
+	line-height 1.1em
+	margin .1em 0 1em
 
 ::selection
 	background $secondary
@@ -44,11 +52,32 @@ p
 
 *
 	hideselect()
+	box-sizing()
 
 a, a:hover, a:visited, a:focus
 	color inherit
 	text-decoration none
 	cursor pointer
+
+em
+	font-family 'NHI', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif
+
+h1, h2
+	text-transform uppercase
+
+h1, h2, h3
+	border-top 1px solid
+	padding-top .1em
+	text-align left
+
+h1:last-child, h2:last-child, h3:last-child
+	border-bottom 1px solid
+
+h4
+	padding-top .1em
+	
+h4::before
+	content '\00a0'
 
 .loader
 	position fixed
@@ -56,6 +85,86 @@ a, a:hover, a:visited, a:focus
 	height 100%
 	top 0
 	left 0
-	background $primary url('../images/loader.gif') center no-repeat
+	background $primary
 	background-size 15px
 	z-index 10000
+
+body
+	#wrap
+		position relative
+		width 100%
+		height 100%
+		.slider
+			position relative
+			display inline-block
+			canvas
+				position absolute 
+				top 0
+				left 0
+				width 100%
+				height 100%
+			img
+				height 100%
+				width auto
+				display block
+				visibility hidden
+		.slider.size-1
+			height 'calc(60vh - %s)' % ($padding)
+			img:nth-child(n+2)
+				margin-top 'calc(-60vh + %s)' % ($padding)
+		.slider.size-2
+			height 'calc(80vh - %s)' % ($padding)
+		.slider.size-3
+			height 'calc(100vh - %s)' % ($padding)
+		.slider.size-4
+			height 'calc(120vh - %s)' % ($padding)
+		.slider.size-5
+			height 'calc(160vh - %s)' % ($padding)
+		.slider.size-6
+			height 'calc(180vh - %s)' % ($padding)
+		span.switch
+			position fixed
+			top calc(50% - 1em)
+			left $padding
+			width 'calc(100% - %s)' % ($padding * 2)
+		span.back
+			position fixed
+			bottom $padding
+			left $padding
+			h2
+				border none
+		span.menu
+			h2.feed
+				cursor pointer
+			div.articles
+				border-top 1px solid
+				display none
+			div.articles.show
+				display block
+			div.article
+				padding-top .1em
+		#page_content
+			display none
+			span(1/2)
+			height 100vh
+			overflow-y scroll
+			position fixed
+			right 0
+			top 0
+			padding $padding
+			background $primary
+			.inner
+				h2, h3
+					border-bottom 1px solid
+					margin-bottom -1px
+				h4
+					margin-bottom 1px
+				flowing-paragraph(1em)
+				text-align justify
+				.article:not(:last-child)
+					margin-bottom 1.1em
+
+body.page
+	#wrap
+		#page_content
+			display block

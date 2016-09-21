@@ -1,3 +1,5 @@
+</div> <!-- wrapper -->
+
 <?php if(!$site->googleanalytics()->empty()): ?>
   <!-- Google Analytics-->
   <script>

@@ -10,3 +10,6 @@
 [submodule "site/fields/builder"]
 	path = site/fields/builder
 	url = https://github.com/TimOetting/kirby-builder.git
+[submodule "site/plugins/typography"]
+	path = site/plugins/typography
+	url = https://github.com/fabianmichael/kirby-typography.git

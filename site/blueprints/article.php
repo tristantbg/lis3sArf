@@ -7,6 +7,11 @@ fields:
   title:
     label: Title
     type:  text
+    width: 1/2
+  subtitle:
+    label: Subtitle
+    type: text
+    width: 1/2
   text:
     label: Text
     type:  textarea

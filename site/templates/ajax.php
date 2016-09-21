@@ -1,14 +1,9 @@
-<?php snippet('header') ?>
-
 <?php
-$about = $pages->find('about');
-$aboutPages = $about->children()->visible();
-$works = $pages->find('works');
-?>
+if(kirby()->request()->ajax()) {
+	$page = page($uri);
+	$site = site();
+	?>
 
-<?php snippet('about-menu', array('about' => $about, 'aboutpages' => $aboutPages, 'works' => $works)) ?>
-
-<div id="page_content">
 	<div class="inner">
 	<?php if ($page->content()->name() == "article"): ?>
 		<h2><?= $page->title()->html() ?><?php if (!$page->subtitle()->empty()){ echo ', ' . $page->subtitle()->html(); } ?></h2>
@@ -25,6 +20,9 @@ $works = $pages->find('works');
 		<?= $page->text()->kt() ?>
 	<?php endif ?>
 	</div>
-</div>
 
-<?php snippet('footer') ?>
+<?php
+}
+else {
+	header::status('404');
+}

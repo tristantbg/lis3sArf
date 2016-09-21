@@ -62,6 +62,10 @@
 	<?php endif ?>
 
 </head>
-<body>
+<body<?php $pname = $page->content()->name(); if($pname == 'default' || $pname == "article" || $pname == "news"): echo ' class="page"'; endif?>>
 
-<div class="loader"></div>
+<div class="loader">
+	<span class="load_italic"><em>   </em></span>
+</div>
+
+<div id="wrap">

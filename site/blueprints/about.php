@@ -7,6 +7,7 @@ pages:
     - project
     - page
     - feed
+    - news
 deletable: false
 fields:
   title:

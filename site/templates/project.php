@@ -6,6 +6,7 @@ $gallery = $page->gallery()->toStructure();
 ?>
 
 <div class="slider size-<?= $page->slidersize() ?>">
+<span class="loading"><strong>Loading…</strong></span>
 	<?php foreach($gallery as $key => $imagename): ?>
 			<?php $image = $page->image($imagename) ?>
 				<?php 
@@ -14,10 +15,12 @@ $gallery = $page->gallery()->toStructure();
 					?>
 
 				<img 
-				class="img-container lazyimg"
-				srcset="<?php echo $srcset ?>" 
+				class="lazyimg lazyload"
+				src="<?= resizeOnDemand($image, 100) ?>" 
+				data-src=<?= resizeOnDemand($image, 2000, true) ?> 
+				data-srcset="<?php echo $srcset ?>" 
 				data-sizes="auto" 
-				data-optimumx="1.2"
+				data-optimumx="1.5"
 				data-fadeDuration="3"
 				data-fadeWidth=".1"
 				alt="<?= site()->title()->html().' — '.page()->title()->html() ?>" />

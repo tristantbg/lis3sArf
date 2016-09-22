@@ -31,9 +31,10 @@ of the system, please check out http://getkirby.com/docs/advanced/options
 
 c::set('home', 'works');
 c::set('oembed.lazyvideo', true);
+c::set('typography', false);
 c::set('typography.ordinal.suffix', false);
-c::set('markdown.extra', true);
 c::set('typography.fractions', false);
+c::set('markdown.extra', true);
 c::set('sitemap.exclude', array('error'));
 c::set('sitemap.important', array('contact'));
 

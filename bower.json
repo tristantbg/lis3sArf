@@ -5,6 +5,10 @@
   "dependencies": {
     "jquery": "~2.1.1",
     "underscore": "^1.8.3",
-    "history.js": "^1.8.0"
+    "history.js": "^1.8.0",
+    "flickity": "^2.0.4",
+    "lazysizes": "^2.0.2",
+    "draggable.js": "draggable#^1.0.1",
+    "draggabilly": "^2.1.1"
   }
 }

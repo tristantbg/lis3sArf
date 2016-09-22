@@ -62,7 +62,7 @@
 	<?php endif ?>
 
 </head>
-<body<?php $pname = $page->content()->name(); if($pname == 'default' || $pname == "article" || $pname == "news"): echo ' class="page"'; endif?>>
+<body<?php $pname = $page->content()->name(); if($pname == 'default' || $pname == "article" || $pname == "news"): echo ' class="page"'; elseif($pname == 'project'): echo ' class="project"'; endif?>>
 
 <div class="loader">
 	<span class="load_italic"><em>   </em></span>

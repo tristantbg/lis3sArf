@@ -22,6 +22,12 @@ var stickyTitles = (function() {
             $container.off("scroll.stickies").on("scroll.stickies", function() {
                 _whenScrolling();
             });
+            $(window).resize(function(event) {
+                $(".sticky-container").each(function() {
+                    var $thisSticky = $(this).find('.stickytitle');
+                    $(this).data('originalPosition', $thisSticky.offset().top).data('originalHeight', $thisSticky.outerHeight()).height($thisSticky.outerHeight());
+                });
+            });
         }
     };
     var _whenScrolling = function() {

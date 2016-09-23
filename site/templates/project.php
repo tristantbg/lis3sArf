@@ -20,7 +20,7 @@ $gallery = $page->gallery()->toStructure();
 				data-src=<?= resizeOnDemand($image, 2000, true) ?> 
 				data-srcset="<?php echo $srcset ?>" 
 				data-sizes="auto" 
-				data-optimumx="1.5"
+				data-optimumx="1.2"
 				data-fadeDuration="3"
 				data-fadeWidth=".1"
 				alt="<?= site()->title()->html().' — '.page()->title()->html() ?>" />

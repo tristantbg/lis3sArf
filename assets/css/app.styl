@@ -69,6 +69,7 @@ h1, h2, h3
 	border-top 1px solid $secondary
 	padding-top .1em
 	text-align left
+	overflow visible
 
 h1:last-child, h2:last-child, h3:last-child
 	border-bottom 1px solid $secondary
@@ -122,42 +123,45 @@ body
 				height 100%
 				width auto
 				display block
-				visibility hidden
+				opacity 0
 		.slider.size-1
 			height 'calc(60vh - %s)' % ($padding*2)
-			img:nth-child(n+2)
+			img:nth-child(n+3)
 				margin-top 'calc(-60vh + %s)' % ($padding*2)
 		.slider.size-2
 			height 'calc(80vh - %s)' % ($padding*2)
-			img:nth-child(n+2)
+			img:nth-child(n+3)
 				margin-top 'calc(-80vh + %s)' % ($padding*2)
 		.slider.size-3
 			height 'calc(100vh - %s)' % ($padding*2)
-			img:nth-child(n+2)
+			img:nth-child(n+3)
 				margin-top 'calc(-100vh + %s)' % ($padding*2)
 		.slider.size-4
 			height 'calc(120vh - %s)' % ($padding*2)
-			img:nth-child(n+2)
+			img:nth-child(n+3)
 				margin-top 'calc(-120vh + %s)' % ($padding*2)
 		.slider.size-5
 			height 'calc(160vh - %s)' % ($padding*2)
-			img:nth-child(n+2)
+			img:nth-child(n+3)
 				margin-top 'calc(-160vh + %s)' % ($padding*2)
 		.slider.size-6
 			height 'calc(180vh - %s)' % ($padding*2)
-			img:nth-child(n+2)
+			img:nth-child(n+3)
 				margin-top 'calc(-180vh + %s)' % ($padding*2)
-		span.switch h2
+		span.loading
+			position absolute
+		span.switch
 			span(1)
+			margin-top 4em
 			//position fixed
 			//top calc(50% - 1em)
 			//left $padding
 			//width 'calc(100% - %s)' % ($padding * 2)
-			margin-top 4em
 		span.back
 			position fixed
 			bottom $padding
 			left $padding
+			z-index 1000
 			h2
 				border none
 		span.menu

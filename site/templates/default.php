@@ -11,7 +11,9 @@ $works = $pages->find('works');
 <div id="page_content">
 	<div class="inner" id="<?= $page->uid() ?>">
 	<?php if ($page->content()->name() == "article"): ?>
+		<div class="stickytitle">
 		<h2><?= $page->title()->html() ?><?php if (!$page->subtitle()->empty()){ echo ', ' . $page->subtitle()->html(); } ?></h2>
+		</div>
 	<?php endif ?>
 	<?php if ($page->content()->name() == "news"): ?>
 		<?php $articles = $page->children()->visible(); ?>

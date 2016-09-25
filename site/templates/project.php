@@ -21,8 +21,8 @@ $gallery = $page->gallery()->toStructure();
 				data-srcset="<?php echo $srcset ?>" 
 				data-sizes="auto" 
 				data-optimumx="1.2"
-				data-fadeDuration="3"
-				data-fadeWidth=".1"
+				data-fadeDuration="1.5"
+				data-fadeWidth=".05"
 				alt="<?= site()->title()->html().' — '.page()->title()->html() ?>" />
 				
 				<noscript>

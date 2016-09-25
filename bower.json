@@ -9,6 +9,7 @@
     "flickity": "^2.0.4",
     "lazysizes": "^2.0.2",
     "draggable.js": "draggable#^1.0.1",
-    "draggabilly": "^2.1.1"
+    "gsap": "^1.19.0",
+    "grunt": "^1.0.1"
   }
 }

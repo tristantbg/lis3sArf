@@ -31,7 +31,7 @@ var stickyTitles = (function() {
         }
     };
     var _whenScrolling = function() {
-        var $padding = parseInt($container.css('padding-left'), 10);
+        var $padding = parseInt($container.css('border-left'), 10);
         console.log($padding);
         $stickies.each(function(i) {
             var $thisSticky = $(this),
@@ -129,7 +129,7 @@ $(function() {
         },
         interactSwiper: function(elem) {
             if ($draggable) {
-                $draggable.draggabilly('destroy');
+                $draggable.kill();
                 $draggable = null;
             }
             elemWidth = elem.width();
@@ -137,44 +137,60 @@ $(function() {
             bodyWidth = $body.width();
             bodyHeight = $body.height();
             if (elemWidth > bodyWidth && elemHeight > bodyHeight) {
-                $draggable = $slider.draggabilly({
-                    //containment: $body,
+                $draggable = Draggable.create($slider, {
+                    type: "x,y",
+                    bounds: $body,
+                    edgeResistance: 1,
+                    throwProps: true,
+                    onClick: function() {
+                        wipe.nextFade();
+                    }
                 });
             } else if (elemWidth > bodyWidth && elemHeight < bodyHeight) {
-                $draggable = $slider.draggabilly({
-                    //containment: $body,
-                    axis: 'x',
+                $draggable = Draggable.create($slider, {
+                    type: "x",
+                    bounds: $body,
+                    edgeResistance: 1,
+                    throwProps: true,
+                    onClick: function() {
+                        wipe.nextFade();
+                    }
                 });
             } else if (elemWidth < bodyWidth && elemHeight > bodyHeight) {
-                $draggable = $slider.draggabilly({
-                    //containment: $body,
-                    axis: 'y',
+                $draggable = Draggable.create($slider, {
+                    type: "y",
+                    bounds: $body,
+                    edgeResistance: 1,
+                    throwProps: true,
+                    onClick: function() {
+                        wipe.nextFade();
+                    }
                 });
             }
             if ($draggable) {
-                $draggable.on('staticClick', function(event) {
-                    wipe.nextFade();
-                });
-                $draggable.on('dragMove', function(event) {
-                    draggie = $(this).data('draggabilly');
-                    console.log('eventName happened', draggie.position.x, draggie.position.y);
-                    if (draggie.position.x <= 0 && draggie.position.y >= 0) {
-                        //draggie.savePos = 'transform: none; left: 0; top: ' + draggie.position.y +'px';
-                    } else {
-                        draggie.savePos = null;
-                    }
-                    if (draggie.savePos) {
-                        //$slider.attr('style', draggie.savePos);
-                        console.log(draggie.savePos);
-                    }
-                });
-                $draggable.on('dragEnd', function() {
-                    if (draggie.savePos) {
-                        //$slider.attr('style', draggie.savePos);
-                    }
-                });
+                // $draggable.on('staticClick', function(event) {
+                //     wipe.nextFade();
+                // });
+                // $draggable.on('dragMove', function(event) {
+                //     draggie = $(this).data('draggabilly');
+                //     console.log('eventName happened', draggie.position.x, draggie.position.y);
+                //     if (draggie.position.x <= 0 && draggie.position.y >= 0) {
+                //         //draggie.savePos = 'transform: none; left: 0; top: ' + draggie.position.y +'px';
+                //     } else {
+                //         draggie.savePos = null;
+                //     }
+                //     if (draggie.savePos) {
+                //         //$slider.attr('style', draggie.savePos);
+                //         console.log(draggie.savePos);
+                //     }
+                // });
+                // $draggable.on('dragEnd', function() {
+                //     if (draggie.savePos) {
+                //         //$slider.attr('style', draggie.savePos);
+                //     }
+                // });
             } else {
-                $slider.bind('click touchstart', function(e) {
+                $slider.bind('click touchend', function(e) {
                     e.preventDefault();
                     wipe.nextFade();
                 });

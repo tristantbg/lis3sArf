@@ -36,22 +36,25 @@ html
 body
 	font-smoothing()
 	font-size 2.3em
-	line-height 1em
+	line-height 1.1em
 	font-family 'NH', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif
 	padding $padding
 
 p
-	line-height 1.1em
-	margin .1em 0 1em
+	line-height 1.2em
+	margin-bottom 1em
 
 ::selection
-	background $secondary
+	background lightgrey
 	
 ::-moz-selection
-	background $secondary
+	background lightgrey
+
+::-webkit-scrollbar
+	width 0px
+	background transparent
 
 *
-	hideselect()
 	box-sizing()
 
 a, a:hover, a:visited, a:focus
@@ -66,16 +69,31 @@ h1, h2, strong
 	text-transform uppercase
 
 h1, h2, h3
-	border-top 1px solid $secondary
-	padding-top .1em
+	position relative
+	padding-top .13em
 	text-align left
 	overflow visible
 
-h1:last-child, h2:last-child, h3:last-child
-	border-bottom 1px solid $secondary
+h1::before, h2::before, h3::before, span.menu div.articles::before
+	content ''
+	position absolute
+	top 0
+	left 0
+	width 100%
+	height 1px
+	background $secondary
+
+h1:last-child::after, h2:last-child::after, h3:last-child::after, .inner h2::after, .inner h3::after, span.menu div.article:not(:last-child)::after
+	content ''
+	position absolute
+	bottom 0
+	left 0
+	width 100%
+	height 1px
+	background $secondary
 
 h4
-	padding-top .1em
+	padding-top .13em
 	
 h4::before
 	content '\00a0'
@@ -91,14 +109,24 @@ h4::before
 	z-index 10000
 
 body
+	#wrap::before
+		content ''
+		position fixed
+		top 0
+		left 'calc(50% - %s)' % ($padding/2)
+		height 100%
+		width $padding
+		background $primary
 	#wrap
 		position relative
 		width 100%
 		height 100%
 		.slider
+			hideselect()
 			position absolute
 			display inline-block
 			cursor pointer
+			border $padding solid $primary
 			.gallery_cell
 				left 0 !important
 				transition(-webkit-mask-position,3s)
@@ -151,6 +179,7 @@ body
 		span.loading
 			position absolute
 		span.switch
+			hideselect()
 			span(1)
 			margin-top 4em
 			//position fixed
@@ -158,25 +187,26 @@ body
 			//left $padding
 			//width 'calc(100% - %s)' % ($padding * 2)
 		span.back
+			hideselect()
 			position fixed
 			bottom $padding
 			left $padding
 			z-index 1000
-			h2
-				border none
+			h2::before, h2::after
+				display none
 		span.menu
 			span(1)
+			hideselect()
 			h2.feed
 				cursor pointer
 			div.articles
-				border-top 1px solid $secondary
+				position relative
 				display none
 			div.articles.show
 				display block
 			div.article
-				padding-top .1em
-			div.article:not(:last-child)
-				border-bottom 1px solid $secondary
+				position relative
+				padding-top .13em
 		#page_content
 			display none
 			span(1/2)
@@ -185,9 +215,16 @@ body
 			position fixed
 			right 0
 			top $padding
-			padding 0 $padding $padding*2
+			padding-bottom $padding*2
+			border-left $padding solid $primary
+			border-right $padding solid $primary
 			background $primary
 			.inner
+				flowing-paragraph(1em)
+				h2 + h2::before, h2 + h3::before
+					display none
+				h2 + p, .sticky-container + p
+					padding-top .13em
 				.sticky-container
 					z-index 1
 					position relative
@@ -196,21 +233,16 @@ body
 						position fixed
 						top $padding
 						left 'calc(50% + %s)' % ($padding)
-						width 'calc(50% - %s)' % ($padding*4)
+						width 'calc(50% - %s)' % ($padding*2)
 						background $primary
 						z-index 0
 					.fixed.absolute
 						position absolute
-				h2, h3
-					border-bottom 1px solid $secondary
-					margin-bottom -1px
-				h4
-					margin-bottom 1px
-				flowing-paragraph(1em)
+				.article:not(:last-child)
+					margin-bottom 1.13em
+			.inner.article
 				text-align justify
 				text-justify inter-word
-				.article:not(:last-child)
-					margin-bottom 1.1em
 
 body.page
 	#wrap

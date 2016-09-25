@@ -1,7 +1,5 @@
 <span class="menu">
 
-	<h1><?= $about->title()->html() ?></h1>
-
 	<?php foreach ($aboutpages as $key => $page): ?>
 		
 		<?php $pname = $page->content()->name() ?>

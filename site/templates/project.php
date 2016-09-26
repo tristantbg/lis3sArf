@@ -15,7 +15,7 @@ $gallery = $page->gallery()->toStructure();
 					?>
 
 				<img 
-				class="lazyimg lazyload"
+				class="lazyimg<?php if ($key < 2){ echo ' lazyload'; } ?>"
 				src="<?= resizeOnDemand($image, 100) ?>" 
 				data-src=<?= resizeOnDemand($image, 2000, true) ?> 
 				data-srcset="<?php echo $srcset ?>" 
@@ -31,9 +31,5 @@ $gallery = $page->gallery()->toStructure();
 				</noscript>
 	<?php endforeach ?>
 </div>
-
-<span class="back">
-	<h2><a href="<?= $works->url() ?>">Back</a></h2>
-</span>
 
 <?php snippet('footer') ?>

@@ -1,6 +1,7 @@
 /* globals $:false */
 var width = $(window).width(),
     height = $(window).height(),
+    isMobile = false,
     $slider = null,
     $draggable = null,
     draggie,
@@ -60,9 +61,11 @@ $(function() {
     var app = {
         init: function() {
             $(window).load(function() {
+                app.sizeSet();
                 $(".loader").hide();
             });
             $(window).resize(function(event) {
+                app.sizeSet();
                 if (wipe) {
                     wipe.resize();
                     app.interactSwiper($slider);
@@ -80,12 +83,14 @@ $(function() {
                     }
                 });
                 $('body').on('click', '[data-target]', function(e) {
-                    e.preventDefault();
-                    $el = $(this);
-                    if ($el.data('target') == "page") {
-                        History.pushState({
-                            type: 'page'
-                        }, $sitetitle + " | " + $el.data('title'), $el.attr('href'));
+                    if (!isMobile) {
+                        e.preventDefault();
+                        $el = $(this);
+                        if ($el.data('target') == "page") {
+                            History.pushState({
+                                type: 'page'
+                            }, $sitetitle + " | " + $el.data('title'), $el.attr('href'));
+                        }
                     }
                 });
                 $body.on('click touchstart', '.feed', function(event) {
@@ -96,11 +101,12 @@ $(function() {
                     //app.loadSlider();
                     $(document).on('lazybeforeunveil', function() {
                         if (!$slider) {
-                            setTimeout(app.loadSwiper, 30);
+                            setTimeout(app.loadSwiper, 100);
                         }
                     });
                 }
                 app.stickyTitles();
+                window.viewportUnitsBuggyfill.init();
                 //esc
                 $(document).keyup(function(e) {
                     //if (e.keyCode === 27) app.goIndex();
@@ -115,8 +121,18 @@ $(function() {
                 });
             });
         },
+        sizeSet: function() {
+            width = $(window).width();
+            height = $(window).height();
+            if (width <= 770 || Modernizr.touch) isMobile = true;
+            if (isMobile) {
+                if (width >= 770) {
+                    location.reload();
+                }
+            }
+        },
         stickyTitles: function(elems) {
-            if ($body.hasClass('page')) {
+            if ($body.hasClass('page') && !isMobile) {
                 stickyTitles.load($('.stickytitle'), $ajaxContainer);
             }
         },
@@ -129,7 +145,7 @@ $(function() {
         },
         interactSwiper: function(elem) {
             if ($draggable) {
-                $draggable.kill();
+                $draggable[0].kill();
                 $draggable = null;
             }
             elemWidth = elem.width();
@@ -140,8 +156,9 @@ $(function() {
                 $draggable = Draggable.create($slider, {
                     type: "x,y",
                     bounds: $body,
-                    edgeResistance: 1,
+                    edgeResistance: 0.95,
                     throwProps: true,
+                    zIndexBoost: false,
                     onClick: function() {
                         wipe.nextFade();
                     }
@@ -150,8 +167,9 @@ $(function() {
                 $draggable = Draggable.create($slider, {
                     type: "x",
                     bounds: $body,
-                    edgeResistance: 1,
+                    edgeResistance: 0.95,
                     throwProps: true,
+                    zIndexBoost: false,
                     onClick: function() {
                         wipe.nextFade();
                     }
@@ -160,36 +178,15 @@ $(function() {
                 $draggable = Draggable.create($slider, {
                     type: "y",
                     bounds: $body,
-                    edgeResistance: 1,
+                    edgeResistance: 0.95,
                     throwProps: true,
+                    zIndexBoost: false,
                     onClick: function() {
                         wipe.nextFade();
                     }
                 });
             }
-            if ($draggable) {
-                // $draggable.on('staticClick', function(event) {
-                //     wipe.nextFade();
-                // });
-                // $draggable.on('dragMove', function(event) {
-                //     draggie = $(this).data('draggabilly');
-                //     console.log('eventName happened', draggie.position.x, draggie.position.y);
-                //     if (draggie.position.x <= 0 && draggie.position.y >= 0) {
-                //         //draggie.savePos = 'transform: none; left: 0; top: ' + draggie.position.y +'px';
-                //     } else {
-                //         draggie.savePos = null;
-                //     }
-                //     if (draggie.savePos) {
-                //         //$slider.attr('style', draggie.savePos);
-                //         console.log(draggie.savePos);
-                //     }
-                // });
-                // $draggable.on('dragEnd', function() {
-                //     if (draggie.savePos) {
-                //         //$slider.attr('style', draggie.savePos);
-                //     }
-                // });
-            } else {
+            if (!$draggable) {
                 $slider.bind('click touchend', function(e) {
                     e.preventDefault();
                     wipe.nextFade();

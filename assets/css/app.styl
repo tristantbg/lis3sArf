@@ -109,14 +109,24 @@ h4::before
 	z-index 10000
 
 body
+	span.back
+		display none
+		hideselect()
+		position absolute
+		bottom $padding
+		left $padding
+		z-index 2000
+		h2::before, h2::after
+			display none
 	#wrap::before
-		content ''
-		position fixed
-		top 0
-		left 'calc(50% - %s)' % ($padding/2)
-		height 100%
-		width $padding
-		background $primary
+		+above($tablet)
+			content ''
+			position fixed
+			top 0
+			left 'calc(50% - %s)' % ($padding/2)
+			height 100%
+			width $padding
+			background $primary
 	#wrap
 		position relative
 		width 100%
@@ -153,29 +163,29 @@ body
 				display block
 				opacity 0
 		.slider.size-1
-			height 'calc(60vh - %s)' % ($padding*2)
+			height 60vh
 			img:nth-child(n+3)
-				margin-top 'calc(-60vh + %s)' % ($padding*2)
+				margin-top -60vh
 		.slider.size-2
-			height 'calc(80vh - %s)' % ($padding*2)
+			height 80vh
 			img:nth-child(n+3)
-				margin-top 'calc(-80vh + %s)' % ($padding*2)
+				margin-top -80vh
 		.slider.size-3
-			height 'calc(100vh - %s)' % ($padding*2)
+			height 100vh
 			img:nth-child(n+3)
-				margin-top 'calc(-100vh + %s)' % ($padding*2)
+				margin-top -100vh
 		.slider.size-4
-			height 'calc(120vh - %s)' % ($padding*2)
+			height 120vh
 			img:nth-child(n+3)
-				margin-top 'calc(-120vh + %s)' % ($padding*2)
+				margin-top -120vh
 		.slider.size-5
-			height 'calc(160vh - %s)' % ($padding*2)
+			height 160vh
 			img:nth-child(n+3)
-				margin-top 'calc(-160vh + %s)' % ($padding*2)
+				margin-top -160vh
 		.slider.size-6
-			height 'calc(180vh - %s)' % ($padding*2)
+			height 180vh
 			img:nth-child(n+3)
-				margin-top 'calc(-180vh + %s)' % ($padding*2)
+				margin-top -180vh
 		span.loading
 			position absolute
 		span.switch
@@ -186,14 +196,6 @@ body
 			//top calc(50% - 1em)
 			//left $padding
 			//width 'calc(100% - %s)' % ($padding * 2)
-		span.back
-			hideselect()
-			position fixed
-			bottom $padding
-			left $padding
-			z-index 1000
-			h2::before, h2::after
-				display none
 		span.menu
 			span(1)
 			hideselect()
@@ -209,16 +211,17 @@ body
 				padding-top .13em
 		#page_content
 			display none
-			span(1/2)
-			height 100vh
-			overflow-y scroll
-			position fixed
-			right 0
-			top $padding
-			padding-bottom $padding*2
-			border-left $padding solid $primary
-			border-right $padding solid $primary
 			background $primary
+			+above($tablet)
+				span(1/2)
+				height 100vh
+				overflow-y scroll
+				position fixed
+				right 0
+				top $padding
+				padding-bottom $padding*2
+				border-left $padding solid $primary
+				border-right $padding solid $primary
 			.inner
 				flowing-paragraph(1em)
 				h2 + h2::before, h2 + h3::before
@@ -245,9 +248,30 @@ body
 				text-justify inter-word
 
 body.page
+	span.back
+		line-height 1em
+		+below($tablet)
+			position fixed
+			width 'calc(100% - %s)' % ($padding*2)
+			background $primary
+			display block
+		h2::before, h2::after
+			+below($tablet)
+				display block
 	#wrap
+		overflow scroll
+		-webkit-overflow-scrolling touch
+		span.menu, span.switch
+			+below($tablet)
+				display none
 		#page_content
 			display block
+			+below($tablet)
+				padding-bottom 1em
 
 body.project
 	overflow hidden
+	padding 0
+	span.back
+		display block
+		bottom 'calc(%s - .2em)' % ($padding)

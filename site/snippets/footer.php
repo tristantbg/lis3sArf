@@ -1,5 +1,9 @@
 </div> <!-- wrapper -->
 
+<span class="back">
+	<h2><a href="<?= page()->parent()->url() ?>">Back</a></h2>
+</span>
+
 <?php if(!$site->googleanalytics()->empty()): ?>
   <!-- Google Analytics-->
   <script>

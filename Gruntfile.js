@@ -2,7 +2,7 @@ module.exports = function(grunt) {
     grunt.initConfig({
         concat: {
             plugins: {
-                src: ['assets/oembed/oembed.min.js', 'lib/wipe.js', 'lib/gsap/src/minified/TweenMax.min.js', 'lib/gsap/src/minified/utils/Draggable.min.js', 'assets/js/vendor/gsap/ThrowPropsPlugin.min.js', 'lib/lazysizes/lazysizes.min.js', 'lib/lazysizes/plugins/optimumx/ls.optimumx.min.js', 'lib/history.js/scripts/bundled/html4+html5/jquery.history.js'],
+                src: ['assets/oembed/oembed.min.js', 'lib/wipe.js', 'lib/viewport-units-buggyfill/viewport-units-buggyfill.js', 'lib/gsap/src/minified/TweenMax.min.js', 'lib/gsap/src/minified/utils/Draggable.min.js', 'assets/js/vendor/gsap/ThrowPropsPlugin.min.js', 'lib/lazysizes/lazysizes.min.js', 'lib/lazysizes/plugins/optimumx/ls.optimumx.min.js', 'lib/history.js/scripts/bundled/html4+html5/jquery.history.js'],
                 dest: 'assets/js/plugins.concat.js'
             },
             js: {

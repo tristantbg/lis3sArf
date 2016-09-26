@@ -60,10 +60,6 @@ var stickyTitles = (function() {
 $(function() {
     var app = {
         init: function() {
-            $(window).load(function() {
-                app.sizeSet();
-                $(".loader").hide();
-            });
             $(window).resize(function(event) {
                 app.sizeSet();
                 if (wipe) {
@@ -98,10 +94,11 @@ $(function() {
                     $(this).next('.articles').toggleClass('show');
                 });
                 if ($body.hasClass('project')) {
-                    //app.loadSlider();
                     $(document).on('lazybeforeunveil', function() {
                         if (!$slider) {
-                            setTimeout(app.loadSwiper, 100);
+                            document.getElementsByClassName("lazyload")[0].addEventListener('load', function(e) {
+                                app.loadSwiper();
+                            }, true);
                         }
                     });
                 }
@@ -113,11 +110,15 @@ $(function() {
                 });
                 //left
                 $(document).keyup(function(e) {
-                    //if (e.keyCode === 37 && $slider) app.goPrev($slider);
+                    //if (e.keyCode === 37 && wipe) wipe.nextFade();
                 });
                 //right
                 $(document).keyup(function(e) {
-                    //if (e.keyCode === 39 && $slider) app.goNext($slider);
+                    if (e.keyCode === 39 && wipe) wipe.nextFade();
+                });
+                $(window).load(function() {
+                    app.sizeSet();
+                    $(".loader").hide();
                 });
             });
         },
@@ -192,49 +193,6 @@ $(function() {
                     wipe.nextFade();
                 });
             }
-        },
-        loadSlider: function() {
-            $slider = $('.slider').flickity({
-                cellSelector: '.gallery_cell',
-                imagesLoaded: true,
-                lazyLoad: 2,
-                setGallerySize: false,
-                friction: 0.3,
-                //percentPosition: false,
-                wrapAround: true,
-                prevNextButtons: false,
-                pageDots: false,
-                draggable: true
-            });
-            flkty = $slider.data('flickity');
-            var prevCell;
-            if (flickityFirst) {
-                $('body').on('click touchstart', '.prev', function(e) {
-                    e.preventDefault();
-                    app.goPrev($slider);
-                });
-                $('body').on('click touchstart', '.next', function(e) {
-                    e.preventDefault();
-                    app.goNext($slider);
-                });
-                flickityFirst = false;
-            }
-            $slider.on('staticClick.flickity', function(event, pointer, cellElement, cellIndex) {
-                if (!cellElement) {
-                    return;
-                }
-                app.goNext($slider);
-            });
-            $slider.on('lazyLoad.flickity', function(event, cellElement) {
-                $body.removeClass('loading');
-            });
-            $slider.on('cellSelect.flickity', function() {});
-        },
-        goNext: function($slider) {
-            $slider.flickity('next', false);
-        },
-        goPrev: function($slider) {
-            $slider.flickity('previous', false);
         },
         goIndex: function() {
             History.pushState({

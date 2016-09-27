@@ -1,8 +1,10 @@
 <?php if(!defined('KIRBY')) exit ?>
 
-title: Image Project
+title: Video Project
 files:
-  type: image
+  type:
+    - video
+    - image
   width: 6000
   height: 6000
   size: 12000000
@@ -38,5 +40,11 @@ fields:
     label: Description
     type: textarea
   gallery: 
-    label: Images
-    type: gallery
+    label: Videos
+    type: structure
+    style: table
+    fields: 
+      media: 
+        label: Video file
+        type: select
+        options: files

@@ -3,7 +3,9 @@
 title: Works
 files: false
 pages:
-  template: project
+  template:
+    - project
+    - videoproject
 deletable: false
 fields:
   title:

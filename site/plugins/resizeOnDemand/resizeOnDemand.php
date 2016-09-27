@@ -7,7 +7,7 @@ $router->register('thumbs(\/.*)?/(:any)-([1-9][0-9]{2,3})-([a-f0-9]{12})(\.(jpeg
   'action'  => function($path, $filename, $width, $hash, $extension) {
 
     // check if the requested width is within the defined range    
-    if ($width % 100 !== 0 || $width > 3000 ) {
+    if ($width % 100 !== 0 || $width > 6000 ) {
       header::notfound();
       exit;
     }
@@ -95,7 +95,7 @@ function resizeOnDemand($image, $width = 500) {
     
     // limit width to predefined range / values
     if ($width < 100) $width = 100;
-    else if ($width > 3000) $width = 3000;
+    else if ($width > 6000) $width = 6000;
     else $width = ceil($width / 100) * 100;
 
     // page or site

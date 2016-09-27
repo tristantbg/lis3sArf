@@ -47,5 +47,19 @@ c::set('routes', array(
           $page = site()->homePage();
       		go($page);
         }
-    )
+    ),
+	array(
+		'pattern' => 'robots.txt',
+		'action' => function () {
+			return new Response('
+				User-agent: *
+				Disallow: /thumbs/
+				Allow: /thumbs/works
+				Disallow: /content/*.txt$
+				Disallow: /kirby/
+				Disallow: /site/
+				Disallow: /*.md$
+				Sitemap: ' . u('sitemap.xml'), 'txt');
+		}
+		)
 ));

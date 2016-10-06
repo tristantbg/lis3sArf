@@ -31,6 +31,7 @@ of the system, please check out http://getkirby.com/docs/advanced/options
 
 c::set('home', 'works');
 c::set('oembed.lazyvideo', true);
+//c::set('markdown.extra', true);
 c::set('sitemap.exclude', array('error'));
 c::set('sitemap.important', array('contact'));
 
@@ -44,8 +45,8 @@ c::set('routes', array(
     array(
         'pattern' => 'about/texts',
         'action'  => function($uri,$uid) {
-          $page = site()->homePage();
-      		go($page);
+          $parent = page('about');
+      		go($parent);
         }
     ),
 	array(
@@ -61,5 +62,5 @@ c::set('routes', array(
 				Disallow: /*.md$
 				Sitemap: ' . u('sitemap.xml'), 'txt');
 		}
-		)
+	)
 ));

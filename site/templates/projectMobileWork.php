@@ -18,7 +18,7 @@ $placeholder = $site->image($site->placeholder());
 				<img 
 				class="lazyimg<?php if ($key < 3){ echo ' lazyload'; } ?>"
 				<?php if ($key == 0): ?>
-				src="<?= thumb($image, array('width' => 200))->url() ?>" 
+				src="<?= thumb($placeholder, array('width' => 100, 'height' => 100/$image->ratio(), 'crop' => true))->url() ?>" 
 				<?php endif ?>
 				data-src=<?= resizeOnDemand($image, 2000) ?> 
 				data-srcset="<?php echo $srcset ?>" 

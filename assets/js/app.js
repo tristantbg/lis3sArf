@@ -6,15 +6,20 @@ var width = $(window).width(),
     $draggable = null,
     draggie,
     flkty,
-    flickityFirst = true,
-    wipe = null;
-$root = '/';
+    first = true,
+    wipe = null,
+    $root = '/';
 var stickyTitles = (function() {
     var $window = $(window),
         $container,
-        $stickies;
+        $stickies,
+        $padding,
+        $images,
+        $nextSticky,
+        $prevSticky;
     var load = function(stickies, container) {
         $container = container;
+        $padding = parseInt($body.css('padding-left'), 10);
         if (typeof stickies === "object" && stickies instanceof jQuery && stickies.length > 0) {
             $stickies = stickies.each(function() {
                 var $thisSticky = $(this).wrap('<div class="sticky-container" />');
@@ -23,33 +28,39 @@ var stickyTitles = (function() {
             $container.off("scroll.stickies").on("scroll.stickies", function() {
                 _whenScrolling();
             });
-            $(window).resize(function(event) {
-                $(".sticky-container").each(function() {
-                    var $thisSticky = $(this).find('.stickytitle');
-                    $(this).data('originalPosition', $thisSticky.offset().top).data('originalHeight', $thisSticky.outerHeight()).height($thisSticky.outerHeight());
+            if (first) {
+                $(window).resize(function(event) {
+                    $(".sticky-container").each(function() {
+                        var $thisSticky = $(this).find('.stickytitle');
+                        $(this).data('originalPosition', $thisSticky.offset().top).data('originalHeight', $thisSticky.outerHeight()).parent().height($thisSticky.outerHeight());
+                    });
                 });
-            });
+                first = false;
+            }
         }
     };
     var _whenScrolling = function() {
-        var $padding = parseInt($container.css('border-left'), 10);
-        console.log($padding);
         $stickies.each(function(i) {
             var $thisSticky = $(this),
                 $stickyPosition = $thisSticky.data('originalPosition');
             if ($stickyPosition <= $container.scrollTop() + $padding) {
-                var $nextSticky = $stickies.eq(i + 1),
+                $nextSticky = $stickies.eq(i + 1),
+                    $prevSticky = $stickies.eq(i - 1),
                     $nextStickyPosition = $nextSticky.data('originalPosition') - $thisSticky.data('originalHeight');
+                if ($stickies.length > 1) {
+                    $prevSticky.hide();
+                }
                 $thisSticky.addClass("fixed");
-                if ($nextSticky.length > 0 && $thisSticky.offset().top >= $nextStickyPosition) {
-                    $thisSticky.addClass("absolute").css("top", $nextStickyPosition);
-                }
+                // if ($nextSticky.length > 0 && $thisSticky.offset().top >= $nextStickyPosition) {
+                //     $thisSticky.addClass("absolute").css("top", $nextStickyPosition);
+                // }
             } else {
-                var $prevSticky = $stickies.eq(i - 1);
+                $prevSticky = $stickies.eq(i - 1);
                 $thisSticky.removeClass("fixed");
-                if ($prevSticky.length > 0 && $container.scrollTop() + $padding <= $thisSticky.data('originalPosition') - $thisSticky.data('originalHeight')) {
-                    $prevSticky.removeClass("absolute").removeAttr("style");
-                }
+                $prevSticky.removeAttr("style");
+                // if ($prevSticky.length > 0 && $container.scrollTop() + $padding <= $thisSticky.data('originalPosition') - $thisSticky.data('originalHeight')) {
+                //     $prevSticky.removeClass("absolute").removeAttr("style");
+                // }
             }
         });
     };
@@ -67,6 +78,9 @@ $(function() {
                     app.interactSwiper($slider);
                 }
             });
+            $(document).bind('touchmove', function(e){
+  e.preventDefault();           
+});
             $(document).ready(function($) {
                 $body = $('body');
                 $ajaxContainer = $('#page_content');
@@ -78,7 +92,7 @@ $(function() {
                         app.loadContent(State.url + '/ajax', $ajaxContainer);
                     }
                 });
-                $('body').on('click', '[data-target]', function(e) {
+                $('body').on('click touchstart', '[data-target]', function(e) {
                     if (!isMobile) {
                         e.preventDefault();
                         $el = $(this);
@@ -88,24 +102,14 @@ $(function() {
                             }, $sitetitle + " | " + $el.data('title'), $el.attr('href'));
                         }
                     }
+                    if (!$(this).parents('.articles').prev('h2').hasClass('feed')) {
+                        $('.articles').slideUp();
+                    }
                 });
                 $body.on('click touchstart', '.feed', function(event) {
                     event.preventDefault();
-                    $(this).next('.articles').toggleClass('show');
+                    $(this).next('.articles').slideToggle();
                 });
-                if ($body.hasClass('project')) {
-                    if ($body.hasClass('video')) {
-                        app.loadVideo();
-                    } else {
-                        $(document).on('lazybeforeunveil', function() {
-                            if (!$slider) {
-                                document.getElementsByClassName("lazyload")[0].addEventListener('load', function(e) {
-                                    app.loadSwiper();
-                                }, false);
-                            }
-                        });
-                    }
-                }
                 app.stickyTitles();
                 window.viewportUnitsBuggyfill.init();
                 //esc
@@ -122,6 +126,19 @@ $(function() {
                 });
                 $(window).load(function() {
                     app.sizeSet();
+                    if ($body.hasClass('project')) {
+                        if ($body.hasClass('video')) {
+                            app.loadVideo();
+                        } else {
+                            $(document).on('lazybeforeunveil', function() {
+                                if (!$slider) {
+                                    document.getElementsByClassName("lazyload")[0].addEventListener('load', function(e) {
+                                        setTimeout(app.loadSwiper, 100);
+                                    }, false);
+                                }
+                            });
+                        }
+                    }
                     $(".loader").hide();
                 });
             });
@@ -129,22 +146,35 @@ $(function() {
         sizeSet: function() {
             width = $(window).width();
             height = $(window).height();
-            if (width <= 770 || Modernizr.touch) isMobile = true;
+            app.stickyTitles(true);
+            if (wipe) {
+              $slider.width($images.eq(0).width());
+            }
+            if (width <= 770) {
+                isMobile = true;
+            } else {
+                isMobile = false;
+            }
             if (isMobile) {
                 if (width >= 770) {
                     //location.reload();
                 }
             }
         },
-        stickyTitles: function(elems) {
-            if ($body.hasClass('page') && !isMobile) {
+        stickyTitles: function(reset) {
+            if ($body.hasClass('page')) {
+                if (reset) {
+                    $ajaxContainer.scrollTop(0);
+                    $('.stickytitle').removeAttr("style").removeClass('fixed').unwrap('.sticky-container');
+                }
                 stickyTitles.load($('.stickytitle'), $ajaxContainer);
             }
         },
         loadSwiper: function() {
-            if (!$slider) {
+            if (!wipe) {
+                $images = $('.lazyimg');
                 wipe = new SWWipe(document.getElementsByClassName("slider")[0]);
-                $slider = $('.slider');
+                $slider = $('.slider').width($images.eq(0).width());
                 app.interactSwiper($slider);
                 $(window).resize();
             }

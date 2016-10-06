@@ -27,8 +27,18 @@ webfont(family, file, hack-chrome-windows = false, weight = 'normal')
 flowing-paragraph(n)
 	p
 		margin-bottom: 0
+		margin-left: 0
+		text-indent: 0
 	p + p
 		text-indent: (n)
+
+indented-paragraph(n)
+	p
+		margin-bottom: 0
+		margin-left: (n)
+		text-indent: (-1 * n)
+	p + p
+		text-indent: (-1 * n)
 
 // Control type size and spacing for abbreviations
 // Example: .paragraph

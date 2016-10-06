@@ -7,11 +7,16 @@ fields:
   title:
     label: Title
     type:  text
-    width: 1/2
+    width: 2/3
+  italic:
+    label: Title in italic ?
+    type: toggle
+    text: yes/no
+    default: yes
+    width: 1/3
   subtitle:
     label: Subtitle
     type: text
-    width: 1/2
   text:
     label: Text
     type:  textarea

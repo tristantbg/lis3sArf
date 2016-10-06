@@ -7,7 +7,6 @@ files:
     - image
   width: 6000
   height: 6000
-  size: 12000000
 pages: false
 fields:
   title:
@@ -47,4 +46,5 @@ fields:
       media: 
         label: Video file
         type: select
+        required: true
         options: files

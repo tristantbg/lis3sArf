@@ -7,7 +7,7 @@
 // Media queries
 $desktop = 1600px
 $laptop = 1100px
-$tablet = 768px
+$tablet = 770px
 $mobile = 400px
 
 // Colors
@@ -34,7 +34,8 @@ html
 	font-size 62.5%
 
 body
-	font-smoothing()
+	//font-smoothing()
+	-webkit-font-smoothing subpixel-antialiased
 	font-size 2.3em
 	line-height 1.1em
 	font-family 'NH', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif
@@ -98,6 +99,10 @@ h4
 h4::before
 	content '\00a0'
 
+.indent
+	text-indent 1em !important
+	margin-left 0 !important
+
 .loader
 	position fixed
 	width 100%
@@ -135,7 +140,7 @@ body
 			hideselect()
 			position absolute
 			display inline-block
-			cursor pointer
+			cursor e-resize
 			border $padding solid $primary
 			.gallery_cell
 				left 0 !important
@@ -159,33 +164,60 @@ body
 				height 100%
 			img
 				height 100%
-				width auto
+				width 100%
 				display block
 				opacity 0
+			img:first-of-type
+				height 100%
+				width auto
 		.slider.size-1
 			height 60vh
+			+below($tablet)
+				height 40vh
 			img:nth-child(n+3)
 				margin-top -60vh
+				+below($tablet)
+					margin-top -40vh
 		.slider.size-2
 			height 80vh
+			+below($tablet)
+				height 60vh
 			img:nth-child(n+3)
 				margin-top -80vh
+				+below($tablet)
+					margin-top -60vh
 		.slider.size-3
 			height 100vh
+			+below($tablet)
+				height 80vh
 			img:nth-child(n+3)
 				margin-top -100vh
+				+below($tablet)
+					margin-top -80vh
 		.slider.size-4
 			height 120vh
+			+below($tablet)
+				height 100vh
 			img:nth-child(n+3)
 				margin-top -120vh
+				+below($tablet)
+					margin-top -100vh
 		.slider.size-5
 			height 160vh
+			+below($tablet)
+				height 110vh
 			img:nth-child(n+3)
 				margin-top -160vh
+				+below($tablet)
+					margin-top -110vh
 		.slider.size-6
 			height 180vh
+			+below($tablet)
+				height 110vh
 			img:nth-child(n+3)
 				margin-top -180vh
+				+below($tablet)
+					margin-top -110vh
 		.videoContainer
 			width 100%
 			height 100%
@@ -293,6 +325,7 @@ body
 			hideselect()
 			span(1)
 			margin-top 4em
+			margin-bottom $padding
 			//position fixed
 			//top calc(50% - 1em)
 			//left $padding
@@ -313,10 +346,11 @@ body
 		#page_content
 			display none
 			background $primary
+			overflow-y scroll
+			overflow-x hidden
+			height 100vh
 			+above($tablet)
 				span(1/2)
-				height 100vh
-				overflow-y scroll
 				position fixed
 				right 0
 				top $padding
@@ -324,8 +358,10 @@ body
 				border-left $padding solid $primary
 				border-right $padding solid $primary
 			.inner
-				flowing-paragraph(1em)
-				h2 + h2::before, h2 + h3::before
+				indented-paragraph(1em)
+				.paragraphs
+					flowing-paragraph(1em)
+				h2 + h2::before, h2 + h3::before, h3 + h3::before
 					display none
 				h2 + p, .sticky-container + p
 					padding-top .13em
@@ -340,13 +376,19 @@ body
 						width 'calc(50% - %s)' % ($padding*2)
 						background $primary
 						z-index 0
-					.fixed.absolute
-						position absolute
+						+below($tablet)
+							left $padding
+							width 'calc(100% - %s)' % ($padding*2)
 				.article:not(:last-child)
 					margin-bottom 1.13em
 			.inner.article
 				text-align justify
 				text-justify inter-word
+				h2:first-of-type::before, h3:first-of-type::before
+					display none
+				.sticky-container
+					h2:first-of-type::before, h3:first-of-type::before
+						display block
 
 body.page
 	span.back
@@ -372,6 +414,8 @@ body.page
 body.project
 	overflow hidden
 	padding 0
+	#wrap::before
+		display none
 	#wrap
 		overflow hidden
 	span.back

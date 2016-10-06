@@ -27,7 +27,11 @@
 						<?php foreach ($articles as $key => $article): ?>
 							<div class="article">
 								<a href="<?= $article->url() ?>" data-title="<?= $article->title()->html() ?>" data-target="page">
+								<?php if ($article->italic()->bool()): ?>
 									<em><?= $article->title()->html() ?></em><?php if (!$article->subtitle()->empty()){ echo ', ' . $article->subtitle()->html(); } ?>
+								<?php else: ?>
+									<?= $article->title()->html() ?><?php if (!$article->subtitle()->empty()){ echo ', ' . $article->subtitle()->html(); } ?>
+								<?php endif ?>
 								</a>
 							</div>
 						<?php endforeach ?>

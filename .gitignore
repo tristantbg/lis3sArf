@@ -3,9 +3,10 @@ Thumbs.db
 /content/*
 /lib
 /assets/css/app.min.css
-/assets/js/build/*
+/assets/css/build/*
 /assets/js/app.concat.js
 /assets/js/plugins.concat.js
+/assets/js/build/*
 /node_modules
 /npm-debug.log
 /site/accounts

@@ -1,8 +1,6 @@
 @import 'nib'
 @import '../../node_modules/jeet/stylus/jeet/*'
 @import '_mixins.styl'
-@import 'normalize.css'
-@import '../oembed/oembed.css'
 
 // Media queries
 $desktop = 1600px
@@ -36,9 +34,11 @@ html
 body
 	//font-smoothing()
 	-webkit-font-smoothing subpixel-antialiased
+	-webkit-font-variant-ligatures no-common-ligatures
+	font-variant-ligatures no-common-ligatures
 	font-size 2.3em
 	line-height 1.1em
-	font-family 'NH', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif
+	font-family 'NH', Helvetica Neue, Helvetica, Arial, sans-serif
 	padding $padding
 	+above($tablet)
 		overflow hidden
@@ -66,7 +66,7 @@ a, a:hover, a:visited, a:focus
 	cursor pointer
 
 em
-	font-family 'NHI', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif
+	font-family 'NHI', Helvetica Neue, Helvetica, Arial, sans-serif
 
 h1, h2, strong
 	text-transform uppercase
@@ -142,7 +142,6 @@ body
 			hideselect()
 			position absolute
 			display inline-block
-			cursor e-resize
 			border $padding solid $primary
 			.gallery_cell
 				left 0 !important
@@ -164,6 +163,7 @@ body
 				left 0
 				width 100%
 				height 100%
+				cursor e-resize
 			img
 				height 100%
 				width 100%
@@ -240,13 +240,13 @@ body
 					padding 5px
 					cursor pointer
 				.icon-play
-					background url('../images/vp_sprite.png') no-repeat -11px 0
+					background url('../../images/vp_sprite.png') no-repeat -11px 0
 					width 6px
 					height 9px
 					display block
 					margin 4px 0 0 8px
 				.icon-pause
-					background url('../images/vp_sprite.png') no-repeat -34px -1px
+					background url('../../images/vp_sprite.png') no-repeat -34px -1px
 					width 8px
 					height 9px
 					display block
@@ -260,7 +260,7 @@ body
 					float left
 					cursor pointer
 				.icon-sound
-					background url('../images/vp_sprite.png') no-repeat -19px 0
+					background url('../../images/vp_sprite.png') no-repeat -19px 0
 					width 13px
 					height 10px
 					display block
@@ -272,7 +272,7 @@ body
 					height 30px
 					float left
 				.icon-fullscreen
-					background url('../images/vp_sprite.png') no-repeat 0 0
+					background url('../../images/vp_sprite.png') no-repeat 0 0
 					width 10px
 					height 10px
 					display block
@@ -356,7 +356,7 @@ body
 				position fixed
 				right 0
 				top $padding
-				padding-bottom $padding*2
+				padding-bottom 1em
 				border-left $padding solid $primary
 				border-right $padding solid $primary
 			.inner
@@ -412,7 +412,7 @@ body.page
 		#page_content
 			display block
 			+below($tablet)
-				padding-bottom 'calc(1em + %s)' % ($padding)
+				padding-bottom 'calc(2em + %s)' % ($padding)
 
 body.project
 	overflow hidden

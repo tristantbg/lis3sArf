@@ -35,6 +35,17 @@ module.exports = function(grunt) {
                 }
             }
         },
+        cssmin: {
+          options: {
+            shorthandCompacting: true,
+            roundingPrecision: -1
+          },
+          target: {
+            files: {
+              'assets/css/build/build.min.css': ['lib/normalize-css/normalize.css', 'assets/oembed/oembed.css', 'assets/css/app.min.css']
+            }
+          }
+        },
         watch: {
             js: {
                 files: ['lib/**/*.js', 'assets/js/**/!(app.min|app.concat).js'],
@@ -64,10 +75,11 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-stylus');
+    grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-php');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.registerTask('javascript', ['concat', 'uglify']);
-    grunt.registerTask('stylesheets', ['stylus']);
+    grunt.registerTask('stylesheets', ['stylus', 'cssmin']);
     grunt.registerTask('test', ['php', 'mocha']);
     grunt.registerTask('default', ['javascript', 'stylesheets', 'watch', 'php']);
 };

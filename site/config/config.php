@@ -29,9 +29,15 @@ of the system, please check out http://getkirby.com/docs/advanced/options
 
 */
 
+c::set('cache', false);
 c::set('home', 'works');
-c::set('oembed.lazyvideo', true);
-//c::set('markdown.extra', true);
+//c::set('oembed.lazyvideo', true);
+//c::set('typography', true);
+c::set('typography.ordinal.suffix', false);
+c::set('typography.fractions', false);
+c::set('typography.hyphenation', true);
+//c::set('thumbs.driver', 'im');
+c::set('thumbs.quality', 90);
 c::set('sitemap.exclude', array('error'));
 c::set('sitemap.important', array('contact'));
 

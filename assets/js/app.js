@@ -78,9 +78,6 @@ $(function() {
                     app.interactSwiper($slider);
                 }
             });
-            $(document).bind('touchmove', function(e){
-  e.preventDefault();           
-});
             $(document).ready(function($) {
                 $body = $('body');
                 $ajaxContainer = $('#page_content');

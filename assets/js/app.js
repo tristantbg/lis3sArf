@@ -44,9 +44,10 @@ var stickyTitles = (function() {
             var $thisSticky = $(this),
                 $stickyPosition = $thisSticky.data('originalPosition');
             if ($stickyPosition <= $container.scrollTop() + $padding) {
-                $nextSticky = $stickies.eq(i + 1),
+                    $nextSticky = $stickies.eq(i + 1),
                     $prevSticky = $stickies.eq(i - 1),
                     $nextStickyPosition = $nextSticky.data('originalPosition') - $thisSticky.data('originalHeight');
+                    if(i - 1 < 0) $prevSticky = $stickies.eq(0);
                 if ($stickies.length > 1) {
                     $prevSticky.hide();
                 }
@@ -56,6 +57,7 @@ var stickyTitles = (function() {
                 // }
             } else {
                 $prevSticky = $stickies.eq(i - 1);
+                if(i - 1 < 0) $prevSticky = $stickies.eq(0);
                 $thisSticky.removeClass("fixed");
                 $prevSticky.removeAttr("style");
                 // if ($prevSticky.length > 0 && $container.scrollTop() + $padding <= $thisSticky.data('originalPosition') - $thisSticky.data('originalHeight')) {

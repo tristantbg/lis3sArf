@@ -10,7 +10,7 @@
 	<?php if($page->isHomepage()): ?>
 		<title><?= $site->title()->html() ?></title>
 	<?php else: ?>
-		<title><?= $site->title()->html() ?> | <?= $page->title()->html() ?></title>
+		<title><?= $page->title()->html() ?> | <?= $site->title()->html() ?></title>
 	<?php endif ?>
 	<?php if($page->isHomepage()): ?>
 		<meta name="description" content="<?= $site->description()->html() ?>">
@@ -28,8 +28,8 @@
 		<meta itemprop="name" content="<?= $site->title()->html() ?>">
 		<meta property="og:title" content="<?= $site->title()->html() ?>" />
 	<?php else: ?>
-		<meta property="og:title" content="<?= $site->title()->html() ?> | <?php echo $page->title()->html() ?>" />
-		<meta itemprop="name" content="<?= $site->title()->html() ?> | <?php echo $page->title()->html() ?>">
+		<meta itemprop="name" content="<?= $page->title()->html() ?> | <?= $site->title()->html() ?>">
+		<meta property="og:title" content="<?= $page->title()->html() ?> | <?= $site->title()->html() ?>" />
 	<?php endif ?>
 	<meta property="og:type" content="website" />
 	<meta property="og:url" content="<?= html($page->url()) ?>" />

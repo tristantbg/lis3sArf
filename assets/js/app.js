@@ -19,7 +19,7 @@ var stickyTitles = (function() {
         $prevSticky;
     var load = function(stickies, container) {
         $container = container;
-        $padding = parseInt($body.css('padding-left'), 10);
+        $padding = parseInt($body.css('padding-left'), 10) + 2;
         if (typeof stickies === "object" && stickies instanceof jQuery && stickies.length > 0) {
             $stickies = stickies.each(function() {
                 var $thisSticky = $(this).wrap('<div class="sticky-container" />');
@@ -149,7 +149,7 @@ $(function() {
             if (wipe) {
               $slider.width($images.eq(0).width());
             }
-            if (width <= 770) {
+            if (width <= 768) {
                 isMobile = true;
             } else {
                 isMobile = false;

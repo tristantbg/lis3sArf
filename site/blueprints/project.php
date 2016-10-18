@@ -20,7 +20,7 @@ fields:
   featured:
     label: Featured image
     type: image
-    width: 3/4
+    width: 2/4
   slidersize:
     label: Slider size
     type: select
@@ -33,6 +33,13 @@ fields:
       5: 5
       6: 6
     default: 1
+    width: 1/4
+  fadeduration:
+    label: Fade duration
+    type: number
+    default: 1.5
+    min: 0
+    step: 0.1
     width: 1/4
   text:
     label: Description

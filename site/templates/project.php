@@ -24,7 +24,7 @@ $placeholder = $site->image($site->placeholder());
 				data-srcset="<?php echo $srcset ?>" 
 				data-sizes="auto" 
 				data-optimumx="1.5"
-				data-fadeDuration="1.5"
+				data-fadeDuration="<?= $page->fadeduration()->value() ?>"
 				data-fadeWidth=".05"
 				height="100%" 
 				width="auto" 

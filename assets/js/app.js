@@ -24,7 +24,8 @@ var stickyTitles = (function() {
             $stickies = stickies.each(function() {
                 var $thisSticky = $(this).wrap('<div class="sticky-container" />');
                 $thisSticky.data('originalPosition', $thisSticky.offset().top).data('originalHeight', $thisSticky.outerHeight()).parent().height($thisSticky.outerHeight());
-                $(this).find("h2").height($thisSticky.outerHeight());
+                var h2 = $(this).find("h2").attr('style','');
+                h2.height(h2.outerHeight() - 1);
             });
             $container.off("scroll.stickies").on("scroll.stickies", function() {
                 _whenScrolling();
@@ -34,7 +35,8 @@ var stickyTitles = (function() {
                     $(".sticky-container").each(function() {
                         var $thisSticky = $(this).find('.stickytitle');
                         $(this).data('originalPosition', $thisSticky.offset().top).data('originalHeight', $thisSticky.outerHeight()).parent().height($thisSticky.outerHeight());
-                        $(this).find("h2").height($thisSticky.outerHeight());
+                        var h2 = $(this).find("h2").attr('style','');
+                        h2.height(h2.outerHeight() - 1);
                     });
                 });
                 first = false;

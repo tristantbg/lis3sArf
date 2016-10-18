@@ -71,6 +71,7 @@ var SWWipe = (function(banner) {
         var firstImg = _this.imageArray[0].img;
         interval = window.setInterval(function() {
             if (hasClass(firstImg, 'lazyloaded')) {
+                window.dispatchEvent(new Event('resize'));
                 _this.resize();
                 window.clearInterval(interval);
                 _this.banner.className += " initialized";

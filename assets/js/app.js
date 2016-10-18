@@ -23,7 +23,8 @@ var stickyTitles = (function() {
         if (typeof stickies === "object" && stickies instanceof jQuery && stickies.length > 0) {
             $stickies = stickies.each(function() {
                 var $thisSticky = $(this).wrap('<div class="sticky-container" />');
-                $thisSticky.data('originalPosition', $thisSticky.offset().top).data('originalHeight', $thisSticky.outerHeight()).height($thisSticky.outerHeight() - 1).parent().height($thisSticky.outerHeight());
+                $thisSticky.data('originalPosition', $thisSticky.offset().top).data('originalHeight', $thisSticky.outerHeight()).parent().height($thisSticky.outerHeight());
+                $(this).find("h2").height($thisSticky.outerHeight());
             });
             $container.off("scroll.stickies").on("scroll.stickies", function() {
                 _whenScrolling();
@@ -32,7 +33,8 @@ var stickyTitles = (function() {
                 $(window).resize(function(event) {
                     $(".sticky-container").each(function() {
                         var $thisSticky = $(this).find('.stickytitle');
-                        $(this).data('originalPosition', $thisSticky.offset().top).data('originalHeight', $thisSticky.outerHeight()).height($thisSticky.outerHeight() - 1).parent().height($thisSticky.outerHeight());
+                        $(this).data('originalPosition', $thisSticky.offset().top).data('originalHeight', $thisSticky.outerHeight()).parent().height($thisSticky.outerHeight());
+                        $(this).find("h2").height($thisSticky.outerHeight());
                     });
                 });
                 first = false;

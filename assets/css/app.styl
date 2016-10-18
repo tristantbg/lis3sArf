@@ -136,7 +136,8 @@ body
 		left $padding
 		z-index 2000
 		h2
-			margin-top 2px
+			+below($tablet)
+				margin-top 2px
 		h2::before, h2::after
 			display none
 	#wrap::before
@@ -342,14 +343,15 @@ body
 			span(1)
 			padding-top 76px
 			padding-bottom $padding
-			+below($tablet)
-				line-height 27px
 			+above($laptop + 1)
 				padding-top 83px
 			+above($desktop)
 				padding-top 90px
 			+above($large)
 				padding-top 105px
+			h2
+				+below($tablet)
+					line-height 27px
 			//position fixed
 			//top calc(50% - 1em)
 			//left $padding
@@ -414,14 +416,6 @@ body
 						+below($tablet)
 							left $padding
 							width 'calc(100% - %s)' % ($padding*2)
-						h2
-							height 24px
-							+above($laptop + 1)
-								height 26px
-							+above($desktop)
-								height 29px
-							+above($large)
-								height 34px
 						h2::after
 							bottom 0
 				.article:not(:last-child)
@@ -466,4 +460,4 @@ body.project
 		overflow hidden
 	span.back
 		display block
-		bottom 'calc(%s - .1em)' % ($padding)
+		bottom 'calc(%s - .18em)' % ($padding)

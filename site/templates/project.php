@@ -25,7 +25,7 @@ $placeholder = $site->image($site->placeholder());
 				data-sizes="auto" 
 				data-optimumx="1.5"
 				data-fadeDuration="<?= $page->fadeduration()->value() ?>"
-				data-fadeWidth=".01"
+				data-fadeWidth=".05"
 				height="100%" 
 				width="auto" 
 				alt="<?= site()->title()->html().' — '.page()->title()->html() ?>" />

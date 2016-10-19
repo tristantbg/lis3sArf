@@ -20,12 +20,12 @@ $placeholder = $site->image($site->placeholder());
 				<?php if ($key == 0): ?>
 				src="<?= thumb($image, array('width' => 200))->url() ?>" 
 				<?php endif ?>
-				data-src=<?= resizeOnDemand($image, 2000) ?> 
+				data-src=<?= resizeOnDemand($image, 3000) ?> 
 				data-srcset="<?php echo $srcset ?>" 
 				data-sizes="auto" 
 				data-optimumx="1.5"
 				data-fadeDuration="<?= $page->fadeduration()->value() ?>"
-				data-fadeWidth=".05"
+				data-fadeWidth=".01"
 				height="100%" 
 				width="auto" 
 				alt="<?= site()->title()->html().' — '.page()->title()->html() ?>" />

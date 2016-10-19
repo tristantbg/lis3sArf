@@ -125,37 +125,21 @@ var SWWipe = (function(banner) {
         // calculate percent completion of wipe
         currentTime = new Date;
         elapsed = currentTime - startTime;
-        _this.percent = elapsed / _this.curImg.fadeDuration;
-        //fadeWidth = _this.curImg.fadeWidth;
+        //_this.percent = elapsed / _this.curImg.fadeDuration;
+        _this.percent = Math.easeInOutQuad(elapsed, 0, 2, _this.curImg.fadeDuration);
         _this.foreContext.save();
         _this.foreContext.clearRect(0, 0, WIDTH, HEIGHT);
         switch (_this.curImg.fadeType) {
             case "cross-lr":
-                gradient = _this.foreContext.createLinearGradient(
-                    (_this.percent * (1 + fadeWidth) - fadeWidth) * WIDTH, 0, (_this.percent * (1 + fadeWidth) + fadeWidth) * WIDTH, 0);
+                var stop1 = (_this.percent - 1) * WIDTH;
+                var stop2 = _this.percent * WIDTH;
+                if (_this.percent - 1 < 0) stop1 = 0;
+                gradient = _this.foreContext.createLinearGradient(stop1, 0, stop2, 0);
                 gradient.addColorStop(0.0, 'rgba(0,0,0,1)');
                 gradient.addColorStop(1.0, 'rgba(0,0,0,0)');
                 _this.foreContext.fillStyle = gradient;
                 _this.foreContext.fillRect(0, 0, WIDTH, HEIGHT);
                 break;
-            //  case "cross-lr-fix":
-            //     gradient = _this.foreContext.createLinearGradient(0, 0, WIDTH, 0);
-            //     var stop1 = (_this.percent * (1 + fadeWidth) - fadeWidth);
-            //     var stop2 = (_this.percent * (1 + fadeWidth) + fadeWidth);
-            //     if (stop1 < 0) {
-            //         stop1 = 0;
-            //     } else if (stop1 > 1) {
-            //         stop1 = 1;
-            //     }
-            //     if (stop2 > 1) stop2 = 1;
-            //     console.log(stop1 + ' - ' + stop2);
-            //     gradient.addColorStop(0.0, 'rgba(0,0,0,1)');
-            //     gradient.addColorStop(stop1, 'rgba(0,0,0,1)');
-            //     gradient.addColorStop(stop2, 'rgba(0,0,0,0)');
-            //     gradient.addColorStop(1.0, 'rgba(0,0,0,0)');
-            //     _this.foreContext.fillStyle = gradient;
-            //     _this.foreContext.fillRect(0, 0, WIDTH, HEIGHT);
-            //     break;
             default:
                 break;
         }
@@ -183,6 +167,37 @@ var SWWipe = (function(banner) {
         } else {
             _this.backContext.drawImage(_this.nxtImg.img, (WIDTH - (HEIGHT * _this.nxtImg.aspect)) / 2, 0, HEIGHT * _this.nxtImg.aspect, HEIGHT);
         }
+    };
+    Math.easeInQuad = function(t, b, c, d) {
+        t /= d;
+        return c * t * t + b;
+    };
+    Math.easeOutQuad = function(t, b, c, d) {
+        t /= d;
+        return -c * t * (t - 2) + b;
+    };
+    Math.easeInOutQuad = function(t, b, c, d) {
+        if ((t /= d / 2) < 1) return c / 2 * t * t + b;
+        return -c / 2 * ((--t) * (t - 2) - 1) + b;
+    };
+    Math.easeInQuart = function(t, b, c, d) {
+        t /= d;
+        return c * t * t * t * t + b;
+    };
+    Math.easeInOutQuart = function(t, b, c, d) {
+        t /= d / 2;
+        if (t < 1) return c / 2 * t * t * t * t + b;
+        t -= 2;
+        return -c / 2 * (t * t * t * t - 2) + b;
+    };
+    Math.easeInOutSine = function(t, b, c, d) {
+        return -c / 2 * (Math.cos(Math.PI * t / d) - 1) + b;
+    };
+    Math.easeInOutExpo = function(t, b, c, d) {
+        t /= d / 2;
+        if (t < 1) return c / 2 * Math.pow(2, 10 * (t - 1)) + b;
+        t--;
+        return c / 2 * (-Math.pow(2, -10 * t) + 2) + b;
     };
     window.requestAnimFrame = (function() {
         return window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || function(callback) {

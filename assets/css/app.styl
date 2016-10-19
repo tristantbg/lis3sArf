@@ -45,8 +45,8 @@ html
 	font-size 100%
 
 body
-	//font-smoothing()
-	-webkit-font-smoothing subpixel-antialiased
+	font-smoothing()
+	//-webkit-font-smoothing subpixel-antialiased
 	-webkit-font-variant-ligatures no-common-ligatures
 	font-variant-ligatures no-common-ligatures
 	font-family 'NH', Helvetica Neue, Helvetica, Arial, sans-serif
@@ -173,6 +173,8 @@ body
 			.gallery_cell.is-selected + .gallery_cell
 				-webkit-mask-image none
 			canvas
+				transition(opacity)
+				opacity 0
 				position absolute 
 				top 0
 				left 0
@@ -187,6 +189,9 @@ body
 			img:first-of-type
 				height 100%
 				width auto
+		.slider.initialized
+			canvas
+				opacity 1
 		.slider.size-1
 			height 60vh
 			+below($tablet)
@@ -386,12 +391,12 @@ body
 				position fixed
 				right 0
 				top $padding
-				padding-bottom 1em
 				border-left $padding solid $primary
 				border-right $padding solid $primary
 			.inner
 				span(1)
 				margin-top 2px
+				margin-bottom $padding
 				indented-paragraph(1em)
 				.paragraphs
 					flowing-paragraph(1em)

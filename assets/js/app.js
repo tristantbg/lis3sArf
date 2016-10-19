@@ -23,7 +23,7 @@ var stickyTitles = (function() {
         if (typeof stickies === "object" && stickies instanceof jQuery && stickies.length > 0) {
             $stickies = stickies.each(function() {
                 var $thisSticky = $(this).wrap('<div class="sticky-container" />');
-                $thisSticky.data('originalPosition', $thisSticky.offset().top).data('originalHeight', $thisSticky.outerHeight()).parent().height($thisSticky.outerHeight());
+                $thisSticky.data('originalPosition', $thisSticky.offset().top).data('originalHeight', $thisSticky.outerHeight()).parent('.sticky-container').height($thisSticky.outerHeight());
                 var h2 = $(this).find("h2").attr('style','');
                 h2.height(h2.outerHeight() - 1);
             });
@@ -34,7 +34,7 @@ var stickyTitles = (function() {
                 $(window).resize(function(event) {
                     $(".sticky-container").each(function() {
                         var $thisSticky = $(this).find('.stickytitle');
-                        $(this).data('originalPosition', $thisSticky.offset().top).data('originalHeight', $thisSticky.outerHeight()).parent().height($thisSticky.outerHeight());
+                        $(this).data('originalPosition', $thisSticky.offset().top).data('originalHeight', $thisSticky.outerHeight()).parent('.sticky-container').height($thisSticky.outerHeight());
                         var h2 = $(this).find("h2").attr('style','');
                         h2.height(h2.outerHeight() - 1);
                     });
@@ -133,13 +133,14 @@ $(function() {
                         if ($body.hasClass('video')) {
                             app.loadVideo();
                         } else {
-                            $(document).on('lazybeforeunveil', function() {
-                                if (!$slider) {
-                                    document.getElementsByClassName("lazyload")[0].addEventListener('load', function(e) {
-                                        setTimeout(app.loadSwiper, 100);
-                                    }, false);
-                                }
-                            });
+                            app.loadSwiper();
+                            // $(document).on('lazybeforeunveil', function() {
+                            //     if (!$slider) {
+                            //         document.getElementsByClassName("lazyload")[0].addEventListener('load', function(e) {
+                            //             setTimeout(app.loadSwiper, 100);
+                            //         }, false);
+                            //     }
+                            // });
                         }
                     }
                     $(".loader").hide();

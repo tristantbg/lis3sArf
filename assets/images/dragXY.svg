@@ -4,8 +4,8 @@
 <svg version="1.1" id="Calque_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 viewBox="0 0 32 32" style="enable-background:new 0 0 32 32;" xml:space="preserve">
 <g sketch:type="MSPage">
-	<path sketch:type="MSShapeGroup" d="M27,27l-6.4,0l0-1.1l4.5,0L16,16.8l-9.1,9.1l4.5,0l0,1.1L5,27l0-6.4l1.1,0l0,4.5l9.1-9.1
-		L6.1,6.9l0,4.5l-1.1,0L5,5l6.4,0l0,1.1l-4.5,0l9.1,9.1l9.1-9.1l-4.5,0l0-1.1L27,5l0,6.4l-1.1,0l0-4.5L16.8,16l9.1,9.1l0-4.5l1.1,0
-		L27,27L27,27z"/>
+	<path sketch:type="MSShapeGroup" d="M31.5,16L27,20.5l-0.8-0.8l3.2-3.2H16.5v12.8l3.2-3.2l0.8,0.8L16,31.5L11.5,27l0.8-0.8l3.2,3.2
+		l0-12.8H2.6l3.2,3.2L5,20.5L0.5,16L5,11.5l0.8,0.8l-3.2,3.2l12.8,0V2.6l-3.2,3.2L11.5,5L16,0.5L20.5,5l-0.8,0.8l-3.2-3.2v12.8
+		l12.8,0l-3.2-3.2l0.8-0.8L31.5,16L31.5,16z"/>
 </g>
 </svg>

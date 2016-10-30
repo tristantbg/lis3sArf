@@ -23,7 +23,7 @@ $placeholder = $site->image($site->placeholder());
 				data-src=<?= resizeOnDemand($image, 4000) ?> 
 				data-srcset="<?php echo $srcset ?>" 
 				data-sizes="auto" 
-				data-optimumx="1.8"
+				data-optimumx="1.7"
 				data-fadeDuration="2.3"
 				data-fadeWidth=".05"
 				height="100%" 

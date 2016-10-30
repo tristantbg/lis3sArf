@@ -5,7 +5,7 @@ files:
   type: image
   width: 6000
   height: 6000
-  size: 12000000
+  size: 7000000
 pages: false
 fields:
   title:

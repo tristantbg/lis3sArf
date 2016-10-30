@@ -6,7 +6,7 @@ $gallery = $page->gallery()->toStructure();
 $placeholder = $site->image($site->placeholder());
 ?>
 
-<div class="slider size-<?= $page->slidersize() ?>">
+<div class="slider image size-<?= $page->slidersize() ?>">
 <span class="loading"><strong>Loading…</strong></span>
 	<?php foreach($gallery as $key => $imagename): ?>
 			<?php $image = $page->image($imagename) ?>

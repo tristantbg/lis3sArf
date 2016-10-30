@@ -6,7 +6,7 @@ $gallery = $page->gallery()->toStructure();
 $videolist = [];
 ?>
 
-<div class="slider size-<?= $page->slidersize() ?>">
+<div class="slider video size-<?= $page->slidersize() ?>">
 <!-- <span class="loading"><strong>Loading…</strong></span> -->
 	<div class="videoContainer">
 

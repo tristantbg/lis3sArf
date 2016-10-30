@@ -35,12 +35,12 @@ c::set('oembed.lazyvideo', true);
 c::set('typography', true);
 c::set('typography.ordinal.suffix', false);
 c::set('typography.fractions', false);
-c::set('typography.minlength', 5);
-c::set('typography.headings', false);
-c::set('typography.allcaps', false);
-c::set('typography.titlecase', false);
+c::set('typography.hyphenation.minlength', 5);
+c::set('typography.hyphenation.headings', false);
+c::set('typography.hyphenation.allcaps', false);
+c::set('typography.hyphenation.titlecase', false);
 //c::set('thumbs.driver', 'im');
-c::set('thumbs.quality', 90);
+c::set('thumbs.quality', 100);
 c::set('sitemap.exclude', array('error'));
 c::set('sitemap.important', array('about'));
 

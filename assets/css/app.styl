@@ -153,27 +153,15 @@ body
 		position relative
 		width 100%
 		height 100%
+		span.loading
+			position absolute
+			opacity 1
 		.slider
 			hideselect()
 			position absolute
 			display inline-block
 			border $padding solid $primary
-			.gallery_cell
-				left 0 !important
-				transition(-webkit-mask-position,3s)
-				-webkit-animation wipe 6s infinite
-				-webkit-animation-delay 3s
-				-webkit-animation-direction alternate
-				-webkit-mask-size 100% 100%
-				-webkit-mask-position 0px 0
-				-webkit-mask-repeat no-repeat
-				-webkit-mask-image -webkit-gradient(linear, left top, right top, color-stop(0.00,  rgba(0,0,0,1)),color-stop(0.35,  rgba(0,0,0,1)),color-stop(0.50,  rgba(0,0,0,0)),color-stop(0.75,  rgba(0,0,0,0)),color-stop(1.00,  rgba(0,0,0,0)));
-			.gallery_cell.is-selected
-				-webkit-mask-position 3000px 0
-			.gallery_cell.is-selected + .gallery_cell
-				-webkit-mask-image none
 			canvas
-				transition(opacity)
 				opacity 0
 				position absolute 
 				top 0
@@ -192,6 +180,8 @@ body
 		.slider.initialized
 			canvas
 				opacity 1
+			span.loading
+				opacity 0
 		.slider.size-1
 			height 60vh
 			+below($tablet)
@@ -245,14 +235,24 @@ body
 			height 100%
 			position relative
 			#videoPlayer
+				display block
 				float left
 			.control
-				color #ccc
+				flexbox()
 				float left
 				clear both
 				width 100%
+				height 100%
 				z-index 5
-				display none
+				line-height 1
+				flex-direction column
+				justify-content space-between
+				position absolute
+				+below($tablet)
+					position initial
+					display block !important
+					opacity 1 !important
+					margin-top $padding
 				.btnPlay
 					float left
 					width 34px
@@ -274,11 +274,18 @@ body
 				.selected
 					font-size 15px
 					color #ccc
-				.sound
-					width 30px
-					height 30px
-					float left
+				.next
 					cursor pointer
+					padding 7px
+				.sound
+					cursor pointer
+					padding 7px
+					+below($tablet)
+						display none
+				.sound strong::after
+					content 'Mute'
+				.sound.muted strong::after
+					content 'Unmute'
 				.icon-sound
 					background url('../../images/vp_sprite.png') no-repeat -19px 0
 					width 13px
@@ -304,6 +311,9 @@ body
 				padding 10px 0px
 				float left
 				width 100%
+				cursor pointer
+				+below($tablet)
+					display none
 			.progress
 				width 100%
 				height 1px
@@ -321,6 +331,14 @@ body
 				z-index 10
 				width 0
 				background $secondary
+			.timeBar::after
+				content ''
+				height 16px
+				width 1px
+				background $secondary
+				position absolute
+				top -8px
+				right 0
 			.bufferBar
 				z-index 5
 				width 0
@@ -341,8 +359,6 @@ body
 				left 0
 				background-color #eee
 				z-index 10
-		span.loading
-			position absolute
 		span.switch
 			hideselect()
 			span(1)

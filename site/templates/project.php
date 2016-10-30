@@ -12,19 +12,19 @@ $placeholder = $site->image($site->placeholder());
 			<?php $image = $page->image($imagename) ?>
 				<?php 
 				$srcset = '';
-				for ($i = 500; $i <= 6000; $i += 500) $srcset .= resizeOnDemand($image, $i) . ' ' . $i . 'w,';
+				for ($i = 250; $i <= 6000; $i += 250) $srcset .= resizeOnDemand($image, $i) . ' ' . $i . 'w,';
 					?>
 
 				<img 
-				class="lazyimg<?php if ($key < 3){ echo ' lazyload'; } ?>"
+				class="lazyimg<?php if ($key < 2){ echo ' lazyload'; } ?>"
 				<?php if ($key == 0): ?>
 				src="<?= thumb($image, array('width' => 200))->url() ?>" 
 				<?php endif ?>
-				data-src=<?= resizeOnDemand($image, 3000) ?> 
+				data-src=<?= resizeOnDemand($image, 4000) ?> 
 				data-srcset="<?php echo $srcset ?>" 
 				data-sizes="auto" 
-				data-optimumx="1.5"
-				data-fadeDuration="<?= $page->fadeduration()->value() ?>"
+				data-optimumx="1.8"
+				data-fadeDuration="2.3"
 				data-fadeWidth=".05"
 				height="100%" 
 				width="auto" 

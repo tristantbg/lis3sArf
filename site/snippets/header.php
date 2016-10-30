@@ -62,7 +62,7 @@
 	<?php endif ?>
 
 </head>
-<body<?php $pname = $page->content()->name(); if($pname == 'default' || $pname == "article" || $pname == "news"): echo ' class="page"'; elseif($pname == 'project'): echo ' class="project"'; elseif($pname == 'videoproject'): echo ' class="project video"'; endif?>>
+<body<?php $pname = $page->content()->name(); if($pname == 'default' || $pname == "article" || $pname == "news" || $page->isErrorPage()): echo ' class="page"'; elseif($pname == 'project'): echo ' class="project"'; elseif($pname == 'videoproject'): echo ' class="project video"'; endif?>>
 
 <div class="loader">
 	<span class="load_italic"><em>   </em></span>

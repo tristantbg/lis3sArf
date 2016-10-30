@@ -6,8 +6,10 @@ var width = $(window).width(),
     $draggable = null,
     draggie,
     flkty,
+    forceLoad = true,
     first = true,
     wipe = null,
+    video = null,
     $root = '/';
 var stickyTitles = (function() {
     var $window = $(window),
@@ -24,7 +26,7 @@ var stickyTitles = (function() {
             $stickies = stickies.each(function() {
                 var $thisSticky = $(this).wrap('<div class="sticky-container" />');
                 $thisSticky.data('originalPosition', $thisSticky.offset().top).data('originalHeight', $thisSticky.outerHeight()).parent('.sticky-container').height($thisSticky.outerHeight());
-                var h2 = $(this).find("h2").attr('style','');
+                var h2 = $(this).find("h2").attr('style', '');
                 h2.height(h2.outerHeight() - 1);
             });
             $container.off("scroll.stickies").on("scroll.stickies", function() {
@@ -35,7 +37,7 @@ var stickyTitles = (function() {
                     $(".sticky-container").each(function() {
                         var $thisSticky = $(this).find('.stickytitle');
                         $(this).data('originalPosition', $thisSticky.offset().top).data('originalHeight', $thisSticky.outerHeight()).parent('.sticky-container').height($thisSticky.outerHeight());
-                        var h2 = $(this).find("h2").attr('style','');
+                        var h2 = $(this).find("h2").attr('style', '');
                         h2.height(h2.outerHeight() - 1);
                     });
                 });
@@ -48,10 +50,10 @@ var stickyTitles = (function() {
             var $thisSticky = $(this),
                 $stickyPosition = $thisSticky.data('originalPosition');
             if ($stickyPosition <= $container.scrollTop() + $padding) {
-                    $nextSticky = $stickies.eq(i + 1),
+                $nextSticky = $stickies.eq(i + 1),
                     $prevSticky = $stickies.eq(i - 1),
                     $nextStickyPosition = $nextSticky.data('originalPosition') - $thisSticky.data('originalHeight');
-                    if(i - 1 < 0) $prevSticky = $stickies.eq(0);
+                if (i - 1 < 0) $prevSticky = $stickies.eq(0);
                 if ($stickies.length > 1) {
                     $prevSticky.hide();
                 }
@@ -61,7 +63,7 @@ var stickyTitles = (function() {
                 // }
             } else {
                 $prevSticky = $stickies.eq(i - 1);
-                if(i - 1 < 0) $prevSticky = $stickies.eq(0);
+                if (i - 1 < 0) $prevSticky = $stickies.eq(0);
                 $thisSticky.removeClass("fixed");
                 $prevSticky.removeAttr("style");
                 // if ($prevSticky.length > 0 && $container.scrollTop() + $padding <= $thisSticky.data('originalPosition') - $thisSticky.data('originalHeight')) {
@@ -133,14 +135,18 @@ $(function() {
                         if ($body.hasClass('video')) {
                             app.loadVideo();
                         } else {
+                          if (navigator.userAgent.toLowerCase().indexOf('firefox') > -1) {
+                            $(document).on('lazybeforeunveil', function() {
+                                    document.getElementsByClassName("lazyload")[0].addEventListener('load', function(e) {
+                                      if(forceLoad){
+                                        setTimeout(wipe.resize, 100);
+                                        forceLoad = false;
+                                        console.log('firefox fix');
+                                      }
+                                    }, false);
+                            });
+                            }
                             app.loadSwiper();
-                            // $(document).on('lazybeforeunveil', function() {
-                            //     if (!$slider) {
-                            //         document.getElementsByClassName("lazyload")[0].addEventListener('load', function(e) {
-                            //             setTimeout(app.loadSwiper, 100);
-                            //         }, false);
-                            //     }
-                            // });
                         }
                     }
                     $(".loader").hide();
@@ -152,7 +158,10 @@ $(function() {
             height = $(window).height();
             app.stickyTitles(true);
             if (wipe) {
-              $slider.width($images.eq(0).width());
+                $slider.width($images.eq(0).width());
+            }
+            if (video) {
+                $('.control').width(video.width());
             }
             if (width <= 768) {
                 isMobile = true;
@@ -169,9 +178,13 @@ $(function() {
             if ($body.hasClass('page')) {
                 if (reset) {
                     $ajaxContainer.scrollTop(0);
-                    $('.stickytitle').removeAttr("style").removeClass('fixed').unwrap('.sticky-container');
+                    $('.sticky-container > .stickytitle').removeAttr("style").removeClass('fixed').unwrap();
                 }
-                stickyTitles.load($('.stickytitle'), $ajaxContainer);
+                setTimeout(function(){
+                if (isMobile || !isMobile && !Modernizr.touch) {
+                  stickyTitles.load($('.stickytitle'), $ajaxContainer);
+                }
+              },100);
             }
         },
         loadSwiper: function() {
@@ -236,49 +249,34 @@ $(function() {
         loadVideo: function() {
             //INITIALIZE
             var index = 0;
-            var first = false;
-            var video = $('#videoPlayer');
+            video = $('#videoPlayer');
             //remove default control when JS loaded
             video[0].removeAttribute("controls");
-            $('.control').fadeIn(500);
-            $('.caption').fadeIn(500);
+            $('.control').fadeOut(500);
+            $('.caption').fadeOut(500);
             //before everything get started
             video.on('loadedmetadata', function() {
-                if (!first) {
+                if (first) {
                     //set video properties
                     $('.current').text(timeFormat(0));
                     $('.duration').text(timeFormat(video[0].duration));
                     updateVolume(0, 0.7);
                     //start to get video buffering data 
                     setTimeout(startBuffer, 150);
-                    //bind video events
-                    $('.videoContainer').hover(function() {
-                        $('.control').stop().fadeIn();
-                        $('.caption').stop().fadeIn();
-                    }, function() {
-                        if (!volumeDrag && !timeDrag) {
-                            $('.control').stop().fadeOut();
-                            $('.caption').stop().fadeOut();
-                        }
-                    })
-                    $('#videoPlayer').on('click', function() {
-                        // $('.btnPlay').find('.icon-play').addClass('icon-play').removeClass('icon-pause');
-                        // $(this).unbind('click');
-                        // video[0].pause();
-                        index++;
-                        if (index == videolist.length) {
-                            index = 0;
-                        }
-                        console.log(index);
-                        video[0].pause();
-                        video[0].setAttribute('src', videolist[index]);
-                        video[0].load();
-                        video[0].play();
-                    });
                     video[0].play();
-                    first = true;
+                    first = false;
                 }
                 $('.control').width(video.width());
+            });
+            //bind video events
+            $('.videoContainer').hover(function() {
+                $('.control').stop().fadeIn();
+                $('.caption').stop().fadeIn();
+            }, function() {
+                if (!volumeDrag && !timeDrag) {
+                    $('.control').stop().fadeOut();
+                    $('.caption').stop().fadeOut();
+                }
             });
             //display video buffering bar
             var startBuffer = function() {
@@ -290,6 +288,20 @@ $(function() {
                     setTimeout(startBuffer, 500);
                 }
             };
+            $('.next strong').on('click', function() {
+                // $('.btnPlay').find('.icon-play').addClass('icon-play').removeClass('icon-pause');
+                // $(this).unbind('click');
+                // video[0].pause();
+                index++;
+                if (index == videolist.length) {
+                    index = 0;
+                }
+                console.log(index);
+                video[0].pause();
+                video[0].setAttribute('src', videolist[index]);
+                video[0].load();
+                video[0].play();
+            });
             //display current video play time
             video.on('timeupdate', function() {
                 var currentPos = video[0].currentTime;
@@ -302,6 +314,11 @@ $(function() {
             //video screen and play button clicked
             video.on('click', function() {
                 playpause();
+            });
+            $(".control").click(function(e) {
+                if (e.target == this) { // only if the target itself has been clicked
+                    playpause();
+                }
             });
             $('.btnPlay').on('click', function() {
                 playpause();
@@ -328,9 +345,9 @@ $(function() {
                 }
             });
             //sound button clicked
-            $('.sound').click(function() {
+            $('.sound strong').click(function() {
                 video[0].muted = !video[0].muted;
-                $(this).toggleClass('muted');
+                $(this).parent().toggleClass('muted');
                 if (video[0].muted) {
                     $('.volumeBar').css('width', 0);
                 } else {

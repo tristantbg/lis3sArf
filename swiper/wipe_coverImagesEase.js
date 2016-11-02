@@ -100,6 +100,7 @@ var SWWipe = (function(banner) {
         // GO
         if (!isSliding && hasClass(nextLazyImage, 'lazyloaded') && initialized) {
             isSliding = true;
+            _this.banner.className += " is-sliding";
             // advance indices
             index1++;
             if (index1 == _this.images.length) index1 = 0;
@@ -163,8 +164,12 @@ var SWWipe = (function(banner) {
             _this.foreContext.drawImage(_this.nxtImg.img, (WIDTH - (HEIGHT * _this.nxtImg.aspect)) / 2, 0, HEIGHT * _this.nxtImg.aspect, HEIGHT);
         }
         _this.foreContext.restore();
-        if (elapsed < _this.curImg.fadeDuration) requestAnimFrame(redraw);
-        else isSliding = false;
+        if (elapsed < _this.curImg.fadeDuration) {
+            requestAnimFrame(redraw);
+        } else {
+            isSliding = false;
+            _this.banner.className = _this.banner.className.replace(new RegExp('(?:^|\\s)'+ 'is-sliding' + '(?:\\s|$)'), ' ');
+        }
     }
     _this.resize = function() {
         h = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;

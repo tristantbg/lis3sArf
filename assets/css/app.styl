@@ -144,10 +144,12 @@ body
 		+above($tablet + 1)
 			content ''
 			position fixed
+			display none
 			top 0
-			left 'calc(50% - %s)' % ($padding/2)
+			left 50%
 			height 100%
-			width $padding
+			z-index 100
+			width 50%
 			background $primary
 	#wrap
 		position relative
@@ -166,17 +168,13 @@ body
 				position absolute 
 				top 0
 				left 0
-				width 100%
-				height 100%
 				cursor pointer
 			img
+				position absolute
 				height 100%
 				width 100%
 				display block
 				opacity 0
-			img:first-of-type
-				height 100%
-				width auto
 		.slider.initialized
 			canvas
 				opacity 1
@@ -186,50 +184,26 @@ body
 			height 60vh
 			+below($tablet)
 				height 40vh
-			img:nth-child(n+3)
-				margin-top -60vh
-				+below($tablet)
-					margin-top -40vh
 		.slider.size-2
 			height 80vh
 			+below($tablet)
 				height 60vh
-			img:nth-child(n+3)
-				margin-top -80vh
-				+below($tablet)
-					margin-top -60vh
 		.slider.size-3
 			height 100vh
 			+below($tablet)
 				height 80vh
-			img:nth-child(n+3)
-				margin-top -100vh
-				+below($tablet)
-					margin-top -80vh
 		.slider.size-4
 			height 120vh
 			+below($tablet)
 				height 100vh
-			img:nth-child(n+3)
-				margin-top -120vh
-				+below($tablet)
-					margin-top -100vh
 		.slider.size-5
 			height 160vh
 			+below($tablet)
 				height 110vh
-			img:nth-child(n+3)
-				margin-top -160vh
-				+below($tablet)
-					margin-top -110vh
 		.slider.size-6
 			height 180vh
 			+below($tablet)
 				height 110vh
-			img:nth-child(n+3)
-				margin-top -180vh
-				+below($tablet)
-					margin-top -110vh
 		// .slider.dragging.dragX canvas
 		// 	cursor url(../../images/dragX.svg) 16 16,url(../../images/dragX.png) 16 16, ew-resize
 		// .slider.dragging.dragY canvas
@@ -415,6 +389,7 @@ body
 				top $padding
 				border-left $padding solid $primary
 				border-right $padding solid $primary
+				z-index 200
 			.inner
 				span(1)
 				margin-top 2px
@@ -466,7 +441,10 @@ body.page
 		h2::before, h2::after
 			+below($tablet)
 				display block
-				
+	
+	#wrap::before
+		display block
+
 	#wrap
 		overflow-y scroll
 		-webkit-overflow-scrolling touch

@@ -25,6 +25,9 @@ var SWWipe = (function(banner) {
     var initialized = false;
     var index1 = -1;
     var index2 = 0;
+    var dataHeight;
+    var h;
+    var w;
     var WIDTH; // width of container (banner)
     var HEIGHT; // height of container
     var ASPECT; // aspect ratio of container 
@@ -50,14 +53,21 @@ var SWWipe = (function(banner) {
 
     function init() {
         cacheElements();
-        WIDTH = _this.banner.clientWidth;
-        HEIGHT = _this.banner.clientHeight;
-        ASPECT = WIDTH / HEIGHT;
+        h = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+        w = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+        if (w > 770) {
+            dataHeight = Number(_this.banner.getAttribute("data-height-desktop"));
+        } else {
+            dataHeight = Number(_this.banner.getAttribute("data-height-mobile"));
+        }
+        HEIGHT = (dataHeight / 100) * h - 14;
+        ASPECT = Number(_this.banner.getAttribute("data-ratio"));
+        WIDTH = HEIGHT * ASPECT;
         for (var i = 0; i < _this.images.length; i++) {
             var image = _this.images[i];
             var imageObject = {};
             imageObject.img = image;
-            imageObject.aspect = image.width / image.height;
+            imageObject.aspect = image.hasAttribute("data-ratio") ? Number(image.getAttribute("data-ratio")) : image.width / image.height;
             imageObject.fadeDuration = image.hasAttribute("data-fadeDuration") ? Number(image.getAttribute("data-fadeDuration")) * 1000 : 1500;
             imageObject.fadeDelay = image.hasAttribute("data-fadeDelay") ? Number(image.getAttribute("data-fadeDelay")) * 1000 : 1000;
             imageObject.fadeType = image.hasAttribute("data-fadeType") ? image.getAttribute("data-fadeType") : "cross-lr";
@@ -135,7 +145,7 @@ var SWWipe = (function(banner) {
             case "cross-lr":
                 var stop1 = (_this.percent - 1) * WIDTH;
                 var stop2 = _this.percent * WIDTH;
-                if (_this.percent - 1 < -0.5) stop1 = -WIDTH/2;
+                if (_this.percent - 1 < -0.5) stop1 = -WIDTH / 2;
                 gradient = _this.foreContext.createLinearGradient(stop1, 0, stop2, 0);
                 gradient.addColorStop(0.0, 'rgba(0,0,0,1)');
                 gradient.addColorStop(0.8, 'rgba(0,0,0,0)');
@@ -156,10 +166,18 @@ var SWWipe = (function(banner) {
         else isSliding = false;
     }
     _this.resize = function() {
-        WIDTH = _this.banner.clientWidth;
-        //HEIGHT = window.innerHeight;
-        HEIGHT = _this.banner.clientHeight; // DS: fix for iOS 9 bug
-        ASPECT = WIDTH / HEIGHT;
+        h = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+        w = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+        if (w > 770) {
+            dataHeight = Number(_this.banner.getAttribute("data-height-desktop"));
+        } else {
+            dataHeight = Number(_this.banner.getAttribute("data-height-mobile"));
+        }
+        HEIGHT = (dataHeight / 100) * h - 14;
+        ASPECT = Number(_this.banner.getAttribute("data-ratio"));
+        WIDTH = HEIGHT * ASPECT;
+        _this.banner.style.width = WIDTH + 14 + 'px';
+        _this.banner.style.height = HEIGHT + 14 + 'px';
         _this.backContext.canvas.width = WIDTH;
         _this.backContext.canvas.height = HEIGHT;
         _this.foreContext.canvas.width = WIDTH;

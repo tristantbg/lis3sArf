@@ -79,13 +79,9 @@ var stickyTitles = (function() {
 $(function() {
     var app = {
         init: function() {
-            $(window).resize(function(event) {
+            window.addEventListener("resize", function() {
                 app.sizeSet();
-                if (wipe) {
-                    wipe.resize();
-                    app.interactSwiper($slider);
-                }
-            });
+            }, false);
             $(document).ready(function($) {
                 $body = $('body');
                 $ajaxContainer = $('#page_content');
@@ -136,6 +132,7 @@ $(function() {
                             app.loadVideo();
                         } else {
                             if (navigator.userAgent.toLowerCase().indexOf('firefox') > -1) {
+                                setTimeout(function(){$('canvas').show();},2000);
                                 $(document).on('lazybeforeunveil', function() {
                                     document.getElementsByClassName("lazyload")[0].addEventListener('load', function(e) {
                                         if (forceLoad) {
@@ -161,7 +158,12 @@ $(function() {
             height = $(window).height();
             app.stickyTitles(true);
             if (wipe) {
-                $slider.width($images.eq(0).width());
+              setTimeout(function() {
+                //console.log($images.eq(0).innerWidth());
+                $slider.width($images.eq(0).innerWidth());
+                wipe.resize();
+                app.interactSwiper($slider);
+              },300);
             }
             if (video) {
                 $('.control').width(video.width());
@@ -197,6 +199,11 @@ $(function() {
                 $slider = $('.slider').width($images.eq(0).width());
                 app.interactSwiper($slider);
                 $(window).resize();
+                // window.addEventListener("orientationchange", function() {
+                //     console.log(screen.orientation);
+                //     $slider.width($images.eq(0).innerWidth());
+                //     wipe.resize();
+                // }, false);
             }
         },
         interactSwiper: function(elem) {
@@ -217,6 +224,20 @@ $(function() {
                     zIndexBoost: false,
                     onClick: function() {
                         wipe.nextFade();
+                    },
+                    onDragStart: function(e) {
+                        TweenLite.set(this.target, {
+                            css: {
+                                className: '+=dragging'
+                            }
+                        });
+                    },
+                    onDragEnd: function(e) {
+                        TweenLite.set(this.target, {
+                            css: {
+                                className: '-=dragging'
+                            }
+                        });
                     }
                 });
                 $slider.addClass('dragX dragY');
@@ -229,6 +250,20 @@ $(function() {
                     zIndexBoost: false,
                     onClick: function() {
                         wipe.nextFade();
+                    },
+                    onDragStart: function(e) {
+                        TweenLite.set(this.target, {
+                            css: {
+                                className: '+=dragging'
+                            }
+                        });
+                    },
+                    onDragEnd: function(e) {
+                        TweenLite.set(this.target, {
+                            css: {
+                                className: '-=dragging'
+                            }
+                        });
                     }
                 });
                 $slider.addClass('dragX').removeClass('dragY');
@@ -241,6 +276,20 @@ $(function() {
                     zIndexBoost: false,
                     onClick: function() {
                         wipe.nextFade();
+                    },
+                    onDragStart: function(e) {
+                        TweenLite.set(this.target, {
+                            css: {
+                                className: '+=dragging'
+                            }
+                        });
+                    },
+                    onDragEnd: function(e) {
+                        TweenLite.set(this.target, {
+                            css: {
+                                className: '-=dragging'
+                            }
+                        });
                     }
                 });
                 $slider.addClass('dragY').removeClass('dragX');

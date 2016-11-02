@@ -29,9 +29,3 @@ fields:
     type: image
     help: 1200x630px minimum
     width: 1/2
-  placeholder:
-    label: Placeholder
-    type: image
-    required: true
-    help: Used for resize (do not remove)
-    width: 1/2

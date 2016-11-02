@@ -135,7 +135,6 @@ var SWWipe = (function(banner) {
             case "cross-lr":
                 var stop1 = (_this.percent - 1) * WIDTH;
                 var stop2 = _this.percent * WIDTH;
-                console.log(stop2);
                 if (_this.percent - 1 < -0.5) stop1 = -WIDTH/2;
                 gradient = _this.foreContext.createLinearGradient(stop1, 0, stop2, 0);
                 gradient.addColorStop(0.0, 'rgba(0,0,0,1)');

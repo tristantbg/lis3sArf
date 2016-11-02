@@ -7,12 +7,12 @@ $placeholder = $site->image($site->placeholder());
 ?>
 
 <div class="slider image size-<?= $page->slidersize() ?>">
-<span class="loading"><strong>Loading…</strong></span>
+<span class="loading"><strong>Loading</strong></span>
 	<?php foreach($gallery as $key => $imagename): ?>
 			<?php $image = $page->image($imagename) ?>
 				<?php 
 				$srcset = '';
-				for ($i = 250; $i <= 6000; $i += 250) $srcset .= resizeOnDemand($image, $i) . ' ' . $i . 'w,';
+				for ($i = 750; $i <= 6000; $i += 250) $srcset .= resizeOnDemand($image, $i) . ' ' . $i . 'w,';
 					?>
 
 				<img 

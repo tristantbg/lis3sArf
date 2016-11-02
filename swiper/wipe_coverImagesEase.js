@@ -138,8 +138,8 @@ var SWWipe = (function(banner) {
         currentTime = new Date;
         elapsed = currentTime - startTime;
         //_this.percent = elapsed / _this.curImg.fadeDuration;
-        _this.percent = Math.easeInOutQuad(elapsed, 0, 1.8, _this.curImg.fadeDuration);
-        _this.percent2 = Math.easeInOutQuad(elapsed, 0, 2.35, _this.curImg.fadeDuration);
+        _this.percent = Math.easeInOutQuad(elapsed, 0, 2, _this.curImg.fadeDuration);
+        _this.percent2 = Math.easeInOutQuad(elapsed, 0, 2.2, _this.curImg.fadeDuration);
         _this.foreContext.save();
         _this.foreContext.clearRect(0, 0, WIDTH, HEIGHT);
         switch (_this.curImg.fadeType) {

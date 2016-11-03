@@ -48,8 +48,8 @@ $slidersize = $page->slidersize();
 				data-srcset="<?php echo $srcset ?>" 
 				data-sizes="auto" 
 				data-optimumx="1.7"
-				data-fadeDuration="2.3"
-				data-fadeWidth=".05"
+				data-fadeDuration="2.4"
+				data-fadeWidth=".08"
 				height="100%" 
 				width="auto" 
 				alt="<?= site()->title()->html().' — '.page()->title()->html() ?>" />

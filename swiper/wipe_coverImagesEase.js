@@ -140,17 +140,16 @@ var SWWipe = (function(banner) {
         elapsed = currentTime - startTime;
         //_this.percent = elapsed / _this.curImg.fadeDuration;
         _this.percent = Math.easeInOutQuad(elapsed, 0, 2, _this.curImg.fadeDuration);
-        _this.percent2 = Math.easeInOutQuad(elapsed, 0, 2.2, _this.curImg.fadeDuration);
         _this.foreContext.save();
         _this.foreContext.clearRect(0, 0, WIDTH, HEIGHT);
         switch (_this.curImg.fadeType) {
             case "cross-lr":
-                var stop1 = (_this.percent2 - 1) * WIDTH;
+                var stop1 = (_this.percent - 1) * WIDTH;
                 var stop2 = _this.percent * WIDTH;
-                if (_this.percent2 - 1 < -0.5) stop1 = -WIDTH / 2;
+                if (_this.percent - 1 < -0.5) stop1 = -WIDTH / 2;
                 gradient = _this.foreContext.createLinearGradient(stop1, 0, stop2, 0);
                 gradient.addColorStop(0.0, 'rgba(0,0,0,1)');
-                gradient.addColorStop(0.8, 'rgba(0,0,0,0)');
+                gradient.addColorStop(1, 'rgba(0,0,0,0)');
                 _this.foreContext.fillStyle = gradient;
                 _this.foreContext.fillRect(0, 0, WIDTH, HEIGHT);
                 break;

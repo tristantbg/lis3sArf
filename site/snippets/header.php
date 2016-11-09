@@ -1,3 +1,5 @@
+<!-- Website developed by Tristan Bagot -->
+
 <!DOCTYPE html>
 <html lang="en" class="no-js">
 <head>

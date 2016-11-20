@@ -33,14 +33,7 @@ fields:
       5: 5
       6: 6
     default: 1
-    width: 1/4
-  fadeduration:
-    label: Fade duration
-    type: number
-    default: 1.5
-    min: 0
-    step: 0.1
-    width: 1/4
+    width: 2/4
   text:
     label: Description
     type: textarea

@@ -14,6 +14,14 @@ fields:
   keywords:
     label: Keywords
     type:  tags
+    width: 1/2
+  fadeduration:
+    label: Fade duration (sec.)
+    type: number
+    default: 3
+    min: 0
+    step: 0.1
+    width: 1/2
   customcss:
     label: Custom CSS
     type: textarea

@@ -55,14 +55,16 @@ var SWWipe = (function(banner) {
         cacheElements();
         h = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
         w = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+        ASPECT = Number(_this.banner.getAttribute("data-ratio"));
         if (w > 770) {
             dataHeight = Number(_this.banner.getAttribute("data-height-desktop"));
+            HEIGHT = (dataHeight / 100) * h - 14;
+            WIDTH = HEIGHT * ASPECT;
         } else {
-            dataHeight = Number(_this.banner.getAttribute("data-height-mobile"));
+            dataHeight = Number(_this.banner.getAttribute("data-width-mobile"));
+            WIDTH = (dataHeight / 100) * w - 14;
+            HEIGHT = WIDTH / ASPECT;
         }
-        HEIGHT = (dataHeight / 100) * h - 14;
-        ASPECT = Number(_this.banner.getAttribute("data-ratio"));
-        WIDTH = HEIGHT * ASPECT;
         for (var i = 0; i < _this.images.length; i++) {
             var image = _this.images[i];
             var imageObject = {};
@@ -167,20 +169,22 @@ var SWWipe = (function(banner) {
             requestAnimFrame(redraw);
         } else {
             isSliding = false;
-            _this.banner.className = _this.banner.className.replace(new RegExp('(?:^|\\s)'+ 'is-sliding' + '(?:\\s|$)'), ' ');
+            _this.banner.className = _this.banner.className.replace(new RegExp('(?:^|\\s)' + 'is-sliding' + '(?:\\s|$)'), ' ');
         }
     }
     _this.resize = function() {
         h = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
         w = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+        ASPECT = Number(_this.banner.getAttribute("data-ratio"));
         if (w > 770) {
             dataHeight = Number(_this.banner.getAttribute("data-height-desktop"));
+            HEIGHT = (dataHeight / 100) * h - 14;
+            WIDTH = HEIGHT * ASPECT;
         } else {
-            dataHeight = Number(_this.banner.getAttribute("data-height-mobile"));
+            dataHeight = Number(_this.banner.getAttribute("data-width-mobile"));
+            WIDTH = (dataHeight / 100) * w - 14;
+            HEIGHT = WIDTH / ASPECT;
         }
-        HEIGHT = (dataHeight / 100) * h - 14;
-        ASPECT = Number(_this.banner.getAttribute("data-ratio"));
-        WIDTH = HEIGHT * ASPECT;
         _this.banner.style.width = WIDTH + 14 + 'px';
         _this.banner.style.height = HEIGHT + 14 + 'px';
         _this.backContext.canvas.width = WIDTH;

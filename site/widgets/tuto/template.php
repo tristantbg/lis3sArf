@@ -10,10 +10,10 @@
 	<h1>Sticky titles:</h1>
 	(sticky: Fellowships & prizes)
 <br><br>
-	<h1>Title uppercase:</h1>
+	<h1>Title lowercase:</h1>
 	###Title
 <br><br>
-	<h1>Title lowercase:</h1>
+	<h1>Title uppercase:</h1>
 	##Title
 <br><br>
 	<h1>Link:</h1>
@@ -25,7 +25,7 @@
 	<h1>Line jump:</h1>
 	####
 <br><br>
-	<h1>Paragraphs normal indentation</h1>
+	<h1>Paragraphs normal indentation (for writings):</h1>
 	(paragraphs…)
 	<br><br>Paragraph 1
 <br><br>

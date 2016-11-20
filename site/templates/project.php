@@ -11,22 +11,22 @@ $slidersize = $page->slidersize();
 <div class="slider image size-<?= $slidersize ?>" 
 	<?php if($slidersize == '1'): ?>
 	data-height-desktop="60" 
-	data-height-mobile="40" 
+	data-width-mobile="100" 
 	<?php elseif($slidersize == '2'): ?>
 	data-height-desktop="80" 
-	data-height-mobile="60" 
+	data-width-mobile="100" 
 	<?php elseif($slidersize == '3'): ?>
 	data-height-desktop="100" 
-	data-height-mobile="80" 
+	data-width-mobile="100" 
 	<?php elseif($slidersize == '4'): ?>
 	data-height-desktop="120" 
-	data-height-mobile="100" 
+	data-width-mobile="100" 
 	<?php elseif($slidersize == '5'): ?>
 	data-height-desktop="160" 
-	data-height-mobile="110" 
+	data-width-mobile="100" 
 	<?php elseif($slidersize == '6'): ?>
 	data-height-desktop="180" 
-	data-height-mobile="110" 
+	data-width-mobile="100" 
 	<?php endif ?>
 	data-ratio="<?= $first->ratio() ?>"
 >
@@ -48,7 +48,7 @@ $slidersize = $page->slidersize();
 				data-srcset="<?php echo $srcset ?>" 
 				data-sizes="auto" 
 				data-optimumx="1.7"
-				data-fadeDuration="2.2"
+				data-fadeDuration="<?= $site->fadeduration()->value() ?>"
 				data-fadeWidth=".08"
 				height="100%" 
 				width="auto" 

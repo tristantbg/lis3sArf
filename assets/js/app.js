@@ -244,7 +244,12 @@ $(function() {
                         });
                     }
                 });
-                TweenLite.set($slider,{x:0,y:0});
+                if ($slider.hasClass('dragX') && $slider.hasClass('dragY')) {} else {
+                    TweenLite.set($slider, {
+                        x: 0,
+                        y: 0
+                    });
+                }
                 $slider.addClass('dragX dragY');
             } else if (elemWidth > bodyWidth && elemHeight < bodyHeight) {
                 $draggable = Draggable.create($slider, {
@@ -271,7 +276,12 @@ $(function() {
                         });
                     }
                 });
-                TweenLite.set($slider,{x:0,y:0});
+                if ($slider.hasClass('dragX') && !$slider.hasClass('dragY')) {} else {
+                    TweenLite.set($slider, {
+                        x: 0,
+                        y: 0
+                    });
+                }
                 $slider.addClass('dragX').removeClass('dragY');
             } else if (elemWidth < bodyWidth && elemHeight > bodyHeight) {
                 $draggable = Draggable.create($slider, {
@@ -298,7 +308,12 @@ $(function() {
                         });
                     }
                 });
-                TweenLite.set($slider,{x:0,y:0});
+                if (!$slider.hasClass('dragX') && $slider.hasClass('dragY')) {} else {
+                    TweenLite.set($slider, {
+                        x: 0,
+                        y: 0
+                    });
+                }
                 $slider.addClass('dragY').removeClass('dragX');
             }
             if (!$draggable) {

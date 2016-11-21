@@ -61,7 +61,11 @@ var SWWipe = (function(banner) {
             HEIGHT = (dataHeight / 100) * h - 14;
             WIDTH = HEIGHT * ASPECT;
         } else {
-            dataHeight = Number(_this.banner.getAttribute("data-width-mobile"));
+            if (w < 400) {
+                dataHeight = Number(_this.banner.getAttribute("data-width-mobile"));
+            } else {
+                dataHeight = Number(_this.banner.getAttribute("data-height-desktop"));
+            }
             WIDTH = (dataHeight / 100) * w - 14;
             HEIGHT = WIDTH / ASPECT;
         }
@@ -181,7 +185,11 @@ var SWWipe = (function(banner) {
             HEIGHT = (dataHeight / 100) * h - 14;
             WIDTH = HEIGHT * ASPECT;
         } else {
-            dataHeight = Number(_this.banner.getAttribute("data-width-mobile"));
+            if (w < 400) {
+                dataHeight = Number(_this.banner.getAttribute("data-width-mobile"));
+            } else {
+                dataHeight = Number(_this.banner.getAttribute("data-height-desktop"));
+            }
             WIDTH = (dataHeight / 100) * w - 14;
             HEIGHT = WIDTH / ASPECT;
         }

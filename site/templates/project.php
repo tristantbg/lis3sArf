@@ -14,19 +14,19 @@ $slidersize = $page->slidersize();
 	data-width-mobile="100" 
 	<?php elseif($slidersize == '2'): ?>
 	data-height-desktop="80" 
-	data-width-mobile="100" 
+	data-width-mobile="120" 
 	<?php elseif($slidersize == '3'): ?>
 	data-height-desktop="100" 
-	data-width-mobile="100" 
+	data-width-mobile="140" 
 	<?php elseif($slidersize == '4'): ?>
 	data-height-desktop="120" 
-	data-width-mobile="100" 
+	data-width-mobile="180" 
 	<?php elseif($slidersize == '5'): ?>
-	data-height-desktop="160" 
-	data-width-mobile="100" 
+	data-height-desktop="140" 
+	data-width-mobile="220" 
 	<?php elseif($slidersize == '6'): ?>
-	data-height-desktop="180" 
-	data-width-mobile="100" 
+	data-height-desktop="160" 
+	data-width-mobile="260" 
 	<?php endif ?>
 	data-ratio="<?= $first->ratio() ?>"
 >

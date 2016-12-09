@@ -11,21 +11,27 @@ $slidersize = $page->slidersize();
 <div class="slider image size-<?= $slidersize ?>" 
 	<?php if($slidersize == '1'): ?>
 	data-height-desktop="60" 
+	data-width-mobile-landscape="50" 
 	data-width-mobile="100" 
 	<?php elseif($slidersize == '2'): ?>
 	data-height-desktop="80" 
+	data-width-mobile-landscape="50" 
 	data-width-mobile="120" 
 	<?php elseif($slidersize == '3'): ?>
 	data-height-desktop="100" 
+	data-width-mobile-landscape="70" 
 	data-width-mobile="140" 
 	<?php elseif($slidersize == '4'): ?>
 	data-height-desktop="120" 
+	data-width-mobile-landscape="70" 
 	data-width-mobile="180" 
 	<?php elseif($slidersize == '5'): ?>
 	data-height-desktop="140" 
+	data-width-mobile-landscape="100" 
 	data-width-mobile="220" 
 	<?php elseif($slidersize == '6'): ?>
 	data-height-desktop="160" 
+	data-width-mobile-landscape="120" 
 	data-width-mobile="260" 
 	<?php endif ?>
 	data-ratio="<?= $first->ratio() ?>"
@@ -39,7 +45,7 @@ $slidersize = $page->slidersize();
 					?>
 
 				<img 
-				class="lazyimg<?php if ($key < 2){ echo ' lazyload'; } ?>"
+				class="lazyimg<?php if ($key < 2){ echo ' lazyload'; } if($key == 0) { echo ' displayed'; } ?>"
 				<?php if ($key == 0): ?>
 				src="<?= thumb($image, array('width' => 200))->url() ?>" 
 				<?php endif ?>

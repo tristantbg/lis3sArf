@@ -152,7 +152,7 @@ $(function() {
                                     }, false);
                                 });
                             }
-                            app.loadSwiper();
+                            setTimeout(app.loadSwiper,1000);   
                         }
                     }
                     $(".loader").hide();
@@ -311,9 +311,9 @@ $(function() {
                 $slider.addClass('dragY').removeClass('dragX');
             }
             TweenLite.set($slider, {
-                        x: 0,
-                        y: 0
-                    });
+                x: 0,
+                y: 0
+            });
             if (!$draggable) {
                 $slider.bind('click touchend', function(e) {
                     e.preventDefault();
@@ -324,7 +324,7 @@ $(function() {
                     }
                 });
             } else {
-              $slider.unbind('click touchend');
+                $slider.unbind('click touchend');
             }
         },
         next: function() {

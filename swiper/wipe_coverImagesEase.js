@@ -84,19 +84,21 @@ var SWWipe = (function(banner) {
         _this.curImg = _this.imageArray[0];
         _this.nxtImg = _this.imageArray[0];
         _this.resize();
+        _this.banner.className += " initialized";
+        initialized = true;
         //resize until first image loaded
-        var firstImg = _this.imageArray[0].img;
-        interval = window.setInterval(function() {
-            if (hasClass(firstImg, 'lazyloaded')) {
-                window.dispatchEvent(new Event('resize'));
-                _this.resize();
-                window.clearInterval(interval);
-                _this.banner.className += " initialized";
-                initialized = true;
-            } else {
-                return;
-            }
-        }, 25);
+        // var firstImg = _this.imageArray[0].img;
+        // interval = window.setInterval(function() {
+        //     if (hasClass(firstImg, 'lazyloaded')) {
+        //         window.dispatchEvent(new Event('resize'));
+        //         _this.resize();
+        //         window.clearInterval(interval);
+        //         _this.banner.className += " initialized";
+        //         initialized = true;
+        //     } else {
+        //         return;
+        //     }
+        // }, 200);
     }
     _this.nextFade = function() {
         //check is next slide ready

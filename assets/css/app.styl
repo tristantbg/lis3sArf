@@ -7,7 +7,7 @@ $large = 2600px
 $desktop = 1900px
 $laptop = 1024px
 $tablet = 768px
-$mobile = 425px
+$mobile = 400px
 
 // Colors
 $primary ?= #fff
@@ -164,6 +164,7 @@ body
 			position absolute
 			display inline-block
 			border $padding solid $primary
+			cursor pointer !important
 			canvas
 				opacity 0
 				position absolute 
@@ -179,47 +180,79 @@ body
 				display block
 				opacity 0
 				z-index 1
+				+above($tablet + 1)
+					height 100%
+					width auto
+					position initial
 				+below($tablet)
 					transition(all, 500ms)
-			img.displayed:first-of-type
-				+below($tablet)
-					opacity 1
-			img.lazyloaded.displayed
-				+below($tablet)
-					opacity 1
-					z-index 10
 		.slider.initialized
 			canvas
 				opacity 1
 			span.loading
 				opacity 0
+			img.lazyloaded.displayed
+				+below($tablet)
+					opacity 1
+					z-index 10
 		.slider.is-sliding
+			cursor none !important
 			canvas
 				cursor none
 		.slider.size-1
-			height 60vh
-			+below($tablet)
-				height 40vh
-		.slider.size-2
-			height 80vh
-			+below($tablet)
+			+above($tablet + 1)
 				height 60vh
-		.slider.size-3
-			height 100vh
+				img:nth-child(n+3)
+					margin-top -60vh
 			+below($tablet)
+				width 50vw
+			+below($mobile)
+				width 100vw
+		.slider.size-2
+			+above($tablet + 1)
 				height 80vh
-		.slider.size-4
-			height 120vh
+				img:nth-child(n+3)
+					margin-top -80vh
 			+below($tablet)
+				width 50vw
+			+below($mobile)
+				width 120vw
+		.slider.size-3
+			+above($tablet + 1)
 				height 100vh
+				img:nth-child(n+3)
+					margin-top -100vh
+			+below($tablet)
+				width 70vw
+			+below($mobile)
+				width 140vw
+		.slider.size-4
+			+above($tablet + 1)
+				height 120vh
+				img:nth-child(n+3)
+					margin-top -120vh
+			+below($tablet)
+				width 70vw
+			+below($mobile)
+				width 180vw
 		.slider.size-5
-			height 160vh
+			+above($tablet + 1)
+				height 140vh
+				img:nth-child(n+3)
+					margin-top -140vh
 			+below($tablet)
-				height 110vh
+				width 100vw
+			+below($mobile)
+				width 220vw
 		.slider.size-6
-			height 180vh
+			+above($tablet + 1)
+				height 160vh
+				img:nth-child(n+3)
+					margin-top -160vh
 			+below($tablet)
-				height 110vh
+				width 120vw
+			+below($mobile)
+				width 260vw
 		// .slider.dragging.dragX canvas
 		// 	cursor url(../../images/dragX.svg) 16 16,url(../../images/dragX.png) 16 16, ew-resize
 		// .slider.dragging.dragY canvas
